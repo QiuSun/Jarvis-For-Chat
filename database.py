@@ -150,3 +150,33 @@ def getUserKeyword(userid, wxid):
     con.close()
     return kw
 
+
+def insertWxGroupMessage(userid, wxid, msg_member, msg_group, msg_time, msg):
+    '''
+    向数据库中插入单条微信群聊消息
+    :param userid: 用户名
+    :param wxid: 微信ID
+    :param msg_member: 发言人名称
+    :param msg_group: 群聊名称
+    :param msg_time: 发言时间 以20181212235900形式传入
+    :param msg: 发言内容
+    :return:
+    '''
+    print([userid, wxid, msg_member, msg_group, msg_time, msg])
+    import sqlite3
+    con = sqlite3.connect('Jarvis-forChat.db')
+    cursor = con.cursor()
+    state = True
+    try:
+        cursor.execute("insert into WX_group_msg (userID,WX_id,source_WX_id,src_WXgrp,msg_time, msg) \
+        values (?,?,?,?,?,?)", (userid, wxid, msg_member, msg_group, msg_time, msg))
+        con.commit()
+        con.close()
+    except Exception as e:
+        print(e)
+        con.rollback()
+        state = False
+        print('[-]Error')
+        con.close()
+    finally:
+        return state
