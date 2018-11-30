@@ -1,0 +1,47 @@
+QWidget{
+background-color:#FAFAFA;
+border-top:1px solid gray;
+border-width:0;
+}
+
+QLineEdit{
+background-color : #FFFFFF;
+border-width:0;
+border-color: #D7D7D7;
+}
+
+QLabel{
+background-color : #FFFFFF;
+color:red;
+border-width:0;
+}
+
+QLabel#LB_note{
+font-color: red;
+background-color: rgb(0,0,0,0);
+}
+
+
+
+QPushButton{
+background-color : #0094C8;
+border-width:0;
+}
+
+QPushButton#PB_return{
+background-color : rgb(0,0,0,0);
+border-width:0;
+border-image: url(images/left.png);
+}
+
+QPushButton#PB_close{
+background-color : rgb(0,0,0,0);
+border-width:0;
+border-image: url(./images/close.png);
+}
+
+QPushButton#PB_reset,#PB_tosignup{
+background-color : rgb(0,0,0,0);
+border-width:0;
+}
+
