@@ -150,7 +150,7 @@ class Main_Window(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    style = open(r"D:\2018software\QssUI\StyleSheets\MetroUI.qss","r",encoding='utf-8')
+    style = open(r"..\QSS\MetroUI.qss","r",encoding='utf-8')
     style_str = style.read()
     #app.setStyleSheet(style_str)
 

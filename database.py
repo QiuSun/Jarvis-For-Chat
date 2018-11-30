@@ -168,7 +168,7 @@ def insertWxGroupMessage(userid, wxid, msg_member, msg_group, msg_time, msg):
     cursor = con.cursor()
     state = True
     try:
-        cursor.execute("insert into WX_group_msg (userID,WX_id,source_WX_id,src_WXgrp,msg_time, msg) \
+        cursor.execute("insert into WX_group_msg (userID,WX_id,src_WX_id,src_WXgrp,msg_time, msg) \
         values (?,?,?,?,?,?)", (userid, wxid, msg_member, msg_group, msg_time, msg))
         con.commit()
         con.close()
@@ -180,3 +180,32 @@ def insertWxGroupMessage(userid, wxid, msg_member, msg_group, msg_time, msg):
         con.close()
     finally:
         return state
+
+
+def filterMessage(userid, wxid, msg_group, msg_time_start, msg_time_end):
+    '''
+    从数据库中筛选出一定时间段内、指定群聊（通过名称）的聊天信息
+    :param userid: 
+    :param wxid: 
+    :param msg_group: 
+    :param msg_time_start: 
+    :param mesg_time_end: 
+    :return: 由string组成的列表
+    '''
+    import sqlite3
+    con = sqlite3.connect('Jarvis-forChat.db')
+    c = con.cursor()
+    cursor = c.execute("select msg from WX_group_msg where userID= ? and WX_id = ? and src_Wxgrp = ? and msg_time >= ? and msg_time <= ?", (userid, wxid, msg_group, msg_time_start, msg_time_end))
+    message_list = []
+    for item in cursor:
+        message_list.append(item[0])
+    con.commit()
+    con.close()
+    return message_list
+
+
+
+if __name__ == '__main__':
+    message_list = filterMessage('13038011192', '13038011192', '有趣', 20181129220300, 20181129220400)
+    for message in message_list:
+        print(message)
