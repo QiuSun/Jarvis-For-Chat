@@ -11,13 +11,10 @@ from scroll import Ui_Form as Group
 from multiprocessing import Pipe, Process
 import time
 import utils_analyse
-
-sys.path.append("..")
-
 import utils_wxpy
 
+# 创建用于父子进程通信的管道
 child_conn, parent_conn = Pipe()
-
 
 class Main_Window(QWidget):
     close_signal = pyqtSignal()
@@ -363,27 +360,34 @@ if __name__ == '__main__':
     # style_str = style.read()
     # app.setStyleSheet(style_str)
 
-    ###创建wxpy
-
+    # 创建wxpy子进程
+    # 传递的参数分别为(管道中子进程的一端) (userid) (微信id)  这里默认微信id与userid一致
     wxpy_process = Process(target=utils_wxpy.createWxpyProcess, args=(child_conn, '13038011192', '13038011192'))
+    # 启动wxpy子进程
     wxpy_process.start()
 
+    # 接受登录状态
     recv = parent_conn.recv()
+    # 登陆成功
     if recv == 'success':
         print('[+]bot创建成功')
+    # 登录失败
     elif recv == 'fail':
         print('[-]bot创建失败 即将退出')
         exit(0)
 
+    # 向子进程请求获得群聊名称 参数为(管道中父进程的一端)
     groupnames = utils_wxpy.getGroupnames(parent_conn)
 
     print('[+]创建窗口中...')
 
+    # 初始化功能页面 传入的参数为[群聊名称列表]
     demo = Main_Window(groupnames)
 
     # demo.LeftTabWidget.currentRowChanged.connect(s.handle_click)
     demo.close_signal.connect(demo.close)
 
+    # 功能页面显示
     demo.show()
-
+    # 安全退出
     sys.exit(app.exec_())

@@ -8,7 +8,8 @@ from wxpy import *
 
 def singleFriendTest(main_process):
     '''
-    向wxpy进程下发单向好友检测命令
+    向wxpy子进程下发"单向好友检测"命令
+    :param main_process: 管道中代表父进程的一端
     :return:
     '''
     main_process.send(['singlefriend'])
@@ -16,27 +17,35 @@ def singleFriendTest(main_process):
 
 def killWxpyProcess(main_process):
     '''
-    杀死微信子进程
+    向wxpy子进程下发"自杀"命令
+    :param main_process: 管道中代表父进程的一端
     :return:
     '''
     main_process.send(['exit'])
 
 
-def sendMsg(main_process, friendname_msg):
+def sendMsg(main_process, friendname, message):
     '''
     向wxpy进程下发群发命令
-    :param groupname_msg_slist: 由(friend, msg)二元组组成的列表
+    :param main_process: 管道中代表父进程的一端
+    :param friendname_msg: (friend, msg)二元组
     :return:
     '''
-    message = ['sendmsg']
-    message.append(friendname_msg[0])
-    message.append(friendname_msg[1])
-    main_process.send(message)
+    packet = ['sendmsg']
+    packet.append(friendname)
+    packet.append(message)
+    # 向子进程发送['sendmsg', friendname, message]列表
+    # 例如：若friendname='爸爸' message='吃饭了吗'
+    # 构成的packet为['sendmsg', '爸爸', '吃饭了吗']
+    # 将向好友列表中的'爸爸'发送'吃饭了吗'
+    main_process.send(packet)
 
 
 def saveFriendImage(main_process, save_dir):
     '''
-    向wxpy进程发送获取好友头像的命令
+    向wxpy子进程发送获取好友头像 并存放在指定文件夹下(以'好友名.jpg'存储)
+    :param main_process: 管道中代表父进程的一端
+    :param save_dir: 好友头像保存的文件夹
     :return:
     '''
     main_process.send(['savefriendimage', save_dir])
@@ -45,7 +54,8 @@ def saveFriendImage(main_process, save_dir):
 def getGroupnames(main_process):
     '''
     获得群聊名称列表
-    :return:
+    :param main_process: 管道中代表父进程的一端
+    :return: 群聊名称的列表
     '''
     main_process.send(['getgroupnames'])
     recv = main_process.recv()
@@ -64,9 +74,9 @@ def get_current_time():
 def createWxpyProcess(sub_process, userid, wxid):
     '''
     创建wxpy进程
-    :param sub_process:
-    :param userid:
-    :param wxid:
+    :param sub_process: 管道中代表子进程的一端
+    :param userid: userid
+    :param wxid: wxid
     :return:
     '''
     print('[ ]开始创建bot')
@@ -89,6 +99,12 @@ def createWxpyProcess(sub_process, userid, wxid):
                 print('[+]群聊[{}] 成员[{}] 内容[{}] 已存入数据库'.format(msg.sender.name, msg.member.name, msg.text))
 
     def s_singleFriendTest():
+        '''
+        执行单向好友检测(子进程内部调用 外部无法直接调用)
+        :return:
+        '''
+        print('[+]调用[单向好友检测]中')
+
         # 遍历好友列表群发不可见字符
         cnt = 0
         for friend in bot.friends():
@@ -106,41 +122,50 @@ def createWxpyProcess(sub_process, userid, wxid):
                 print('[ ]即将退出')
                 break
 
-    def s_sendmsg(friendname_msg):
-        friend = ensure_one(bot.friends().search(friendname_msg[0]))
-        friend.send(friendname_msg[1])
-        print('[+]向{}发送[{}]成功'.format(friendname_msg[0], friendname_msg[1]))
+    def s_sendMsg(friendname, message):
+        '''
+        向好友发送消息(子进程内部调用 外部无法直接调用)
+        :param friendname: 好友名
+        :param message: 消息内容
+        :return:
+        '''
+        print('[+]调用[发送消息]中')
+        friend = ensure_one(bot.friends().search(friendname))
+        friend.send(message)
+        print('[+]向{}发送[{}]成功'.format(friendname, message))
 
-    def s_getgroupnames():
-        groupname_list = ['groupnames']
+    def s_getGroupNames():
+        '''
+        获得群组的名称列表
+        :return:
+        '''
+        # 准备报文
+        packet = ['groupnames']
         for group in bot.groups():
-            groupname_list.append(group.name)
-        sub_process.send(groupname_list)
-        # return groupname_list
-
-    for item in sub_process.__dict__.items():
-        print(item)
+            packet.append(group.name)
+        # 子进程向父进程发送群聊列表报文
+        sub_process.send(packet)
 
     # 子程序进入死循环 不断监听管道内是否有命令
     while True:
         print('子进程正在运行')
         recv = sub_process.recv()
-        print(recv)
         operate = recv[0]
         print('[!]operate : {}'.format(operate))
+        print('[ ]packet: {}'.format(recv))
 
         if operate == 'singlefriend':
+            # 暂时关闭单向好友检测
             # s_singleFriendTest()
             pass
         elif operate == 'sendmsg':
-            s_sendmsg(recv[1:3])
+            s_sendMsg(recv[1], recv[2])
         elif operate == 'getgroupnames':
-            s_getgroupnames()
+            s_getGroupNames()
         elif operate == 'exit':
             print('[!]Wxpy子进程即将退出')
             exit(0)
 
-        # print('[+]子进程正在运行')
 
 
 if __name__ == "__main__":
