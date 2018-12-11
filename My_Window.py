@@ -6,8 +6,6 @@ from PyQt5.QtCore import Qt
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFrame
-from barabove_py import BarLogic
-from scroll import Ui_Form as Group
 from multiprocessing import Pipe, Process
 import time
 import utils_analyse
