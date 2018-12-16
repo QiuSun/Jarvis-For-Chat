@@ -113,7 +113,7 @@ class SignupLogic(QDialog,Ui_Dialog):
         else:
             user_password = db.hash(user_password)
             if db.IsExistUser(user_name) == None:
-                db.Insert_User(user_name,user_name,user_phone,user_password)
+                db.InsertUser(user_name,user_name,user_phone,user_password)
                 self.LB_note.setText("注册成功")
                 self.timer.timeout.connect(self.return_main)
                 self.timer.start(3000)
@@ -131,11 +131,11 @@ class SignupLogic(QDialog,Ui_Dialog):
         x = random.choice(chars), random.choice(chars), random.choice(chars), random.choice(chars), random.choice(
             chars), random.choice(chars)
         self.verifycode = "".join(x)
-        self.vtime="5"
+        vtime="5"
         # 获取用户的手机号
         tos = self.LE_phone.text()
         # 构造短信内容，需事先在秒嘀科技审核通过该短信模板
-        smsContent = '【第三视角】您的验证码为' + self.verifycode + '，请于'+ self.vtime + '分钟内正确输入，如非本人操作，请忽略此短信。'
+        smsContent = '【第三视角】您的验证码为' + self.verifycode + '，请于'+ vtime + '分钟内正确输入，如非本人操作，请忽略此短信。'
         # 验证手机号正确性
         ret = re.match(r"^1[35678]\d{9}$", tos)
         if tos == "":
