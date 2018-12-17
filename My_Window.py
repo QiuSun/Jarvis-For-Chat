@@ -1,10 +1,9 @@
 import sys
+from PyQt5 import QtWidgets, QtCore,QtGui
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
-from PyQt5 import QtCore
-from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QFrame
 from multiprocessing import Pipe, Process
 import time
@@ -13,6 +12,7 @@ import utils_wxpy
 
 # 创建用于父子进程通信的管道
 child_conn, parent_conn = Pipe()
+
 
 class Main_Window(QWidget):
     close_signal = pyqtSignal()
@@ -31,9 +31,6 @@ class Main_Window(QWidget):
         self.main_layout = QGridLayout(self, spacing=0)
         self.main_layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.main_layout)
-        # ------------------------上边框--------------------------------------#
-        # self.bara = BarLogic()
-        # self.main_layout.addWidget(self.bara,0,0,1,0)
         # ------------------------左边菜单栏--------------------------------------#
         self.LeftTabWidget = QListWidget()
         self.LeftTabWidget.setFixedWidth(180)
@@ -60,12 +57,6 @@ class Main_Window(QWidget):
         self.avatar.setIconSize(QSize(170, 170))
         self.avatar_layout.addWidget(self.avatar, 2, 0, 3, 3)  ##控件名，行，列，占用行数，占用列数，对齐方式###############################
         self.avatar_layout.setAlignment(self.avatar_layout, Qt.AlignRight)
-        # self.weixin = QtWidgets.QPushButton()
-        # self.weixin.setFixedSize(QSize(45, 45))
-        # self.weixin.setIcon(QIcon(r'Resource/images/weixin1.png'))
-        # self.avatar_layout.addWidget(self.weixin, 4, 4, 1, 1)
-        # self.avatar_layout.setAlignment(self.weixin, Qt.AlignRight)
-        # self.avatar_layout.setAlignment(self.weixin, Qt.AlignBottom)
 
         ################################# QSS ##################################
         self.setStyleSheet('QWidget{background-color: rgb(255,255,255)}')
@@ -75,10 +66,8 @@ class Main_Window(QWidget):
         # 在QStackedWidget对象中填充了4个子控件
         self.stack = QStackedWidget(self)
         self.right_layout = QGridLayout()
-        # self.main_layout.addLayout(self.right_layout,0,5)
         self.stack.setLayout(self.right_layout)
-        self.main_layout.addWidget(self.stack, 1, 1, 14, 14)  ################################# 我改了
-        # self.stack.setMinimumSize(620,600)
+        self.main_layout.addWidget(self.stack, 1, 1, 14, 14)
         ################################# QSS ##################################
         self.stack.setStyleSheet('QWidget{background-color: rgb(0,0,0,10)}')
 
@@ -96,7 +85,6 @@ class Main_Window(QWidget):
         self.stack.addWidget(self.stack3)
         self.stack.addWidget(self.stack4)
 
-
     def center(self):  # 设置窗口居中
         self.qr = self.frameGeometry()
         self.cp = QDesktopWidget().availableGeometry().center()
@@ -105,159 +93,36 @@ class Main_Window(QWidget):
 
     # 热词分析
     def stack1UI(self, groupname_list):
-        # 水平布局
-        self.layout_s1 = QHBoxLayout()
-        self.layout_s1.setContentsMargins(0, 0, 0, 0)
-        """左侧显示框"""
-        self.W_left = QtWidgets.QWidget()
-        # 垂直布局
-        self.W_left_layout = QVBoxLayout()
-        self.W_left_layout.setContentsMargins(0, 0, 0, 0)
-        self.mid_init()  # 生成初始界面
-        self.W_left.setLayout(self.W_left_layout)
-        """右侧群组列表"""
-        from scroll_py import GroupLogic
         self.group = GroupLogic(groupname_list)
-        self.create_element(groupname_list)
-        # self.group.PB_group.clicked.connect(self.mid_dynamically)
+        """水平布局"""
+        self.layout_1 = QHBoxLayout()
+        self.layout_1.setContentsMargins(0, 0, 0, 0)
+        """左侧显示框"""
+        self.W_left_1 = QtWidgets.QWidget()
+        # 垂直布局
+        self.W_left_1.setLayout(self.group.mid_init())
+        """右侧群组列表"""
+        self.group.create_element(groupname_list)
         """加入主体"""
-        self.layout_s1.addWidget(self.W_left)
-        self.layout_s1.addWidget(self.group)
-        self.stack1.setLayout(self.layout_s1)
-        ################################# QSS ##################################
-        # self.W_left.setStyleSheet('QWidget{background-color: rgb(228,228,228,10)}')
-
-    def mid_init(self):
-        """
-        初始的热词分析界面
-        :return:
-        """
-        # 图片
-        self.l1 = QLabel(self)
-        self.l1.setGeometry(0, 0, 540, 200)
-        self.logo = QPixmap('./images/logo-p.png').scaled(self.l1.width(), self.l1.height())
-        self.l1.setPixmap(self.logo)
-        self.l2 = QLabel(self)
-        self.l2.setText('请在右侧列表中选择你感兴趣的群组及时间段')
-        self.l3 = QLabel( self)
-        self.l3.setText('开启你的【热词分析】之旅~')
-        # 间隔区
-        self.l4 = QtWidgets.QLabel(self)
-        self.l5 = QtWidgets.QLabel(self)
-        # 添加控件
-        self.W_left_layout.addWidget(self.l4)  # , 0, QtCore.Qt.AlignHCenter
-        self.W_left_layout.addWidget(self.l1, 0, QtCore.Qt.AlignHCenter)
-        self.W_left_layout.addWidget(self.l2, 0, QtCore.Qt.AlignHCenter)
-        self.W_left_layout.addWidget(self.l3, 0, QtCore.Qt.AlignHCenter)
-        self.W_left_layout.addWidget(self.l5)
-        ################################# QSS ##################################
-        self.l1.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);}')
-        self.l2.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);font-family:微软雅黑;font-size:20px;font-weight:bold;}')
-        self.l3.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);font-family:微软雅黑;font-size:20px;font-weight:bold;}')
-        self.l4.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);}')
-        self.l5.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);}')
-
-
-    def create_element(self, groupname_list):
-        """
-        给定参数，动态生成全部群组
-        :return:
-        """
-        # import My_Window
-        # groupnames=My_Window.get_groupnames()
-
-        self.topFiller = QtWidgets.QWidget()
-        self.topFiller.setContentsMargins(0, 0, 0, 0)
-        for button in range(len(groupname_list)):
-            self.PB_group = QtWidgets.QPushButton(self.topFiller)
-            self.PB_group.resize(270, 60)
-            # PNG_group=QtGui.QPixmap('./images/search.png')
-            # self.PB_group.setIcon(QtGui.QIcon(r"./images/search.png"))
-            # self.PB_group.setText(str(button))
-            self.PB_group.setText(str(groupname_list[button]))
-            self.topFiller.setMinimumSize(0, (button + 1) * 60)
-            self.PB_group.move(0, button * 61)
-            # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
-            self.PB_group.clicked.connect(lambda: self.choose_group(self.group.sender().text()))
-
-        self.group.SA_group.setWidget(self.topFiller)
-        self.group.SA_group.setContentsMargins(0, 0, 0, 0)
-
-    def choose_group(self, group_name):
-        """
-        获取群名及时间段，并传给后端
-        """
-        # 获取群名#
-        # 获取时间段#
-        from datetime import datetime, timedelta
-        end_Time = datetime.now()
-        # 根据选择按钮文本，获取start_Time
-        time_Text = self.group.CBB_time.currentText()
-        if (time_Text == "过去6小时"):
-            start_Time = end_Time - timedelta(hours=6)
-        elif (time_Text == "过去24小时"):
-            start_Time = end_Time - timedelta(hours=24)
-        elif (time_Text == "过去三天"):
-            start_Time = end_Time - timedelta(days=3)
-        elif (time_Text == "过去一周"):
-            start_Time = end_Time - timedelta(days=7)
-
-        # 将时间转为int#
-        start_Time_Int = int(start_Time.strftime("%Y%m%d%H%M%S"))
-        end_Time_Int = int(end_Time.strftime("%Y%m%d%H%M%S"))
-        self.group.data.clear()
-        self.group.data.insert(0, group_name)
-        self.group.data.insert(1, start_Time_Int)
-        self.group.data.insert(2, end_Time_Int)
-        print(self.group.data)
-        self.mid_dynamically()
-
-    def mid_dynamically(self):
-        # 先把初始化的东西都删掉
-        self.l4.close()
-        self.l2.close()
-        self.l3.close()
-        self.l5.close()
-
-        # -----------------------再插入词云--------------------------------#
-        # 生成路径
-
-        # path ="ciyun\\" + self.group.data[0] + "\\" + str(self.group.data[1]) + str(self.group.data[2]) + '.jpg'
-        path = 'result/' + str(time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))) + '.jpg'
-        # print(self.group.data[0]," ",self.group.data[1]," ",self.group.data[2]," ",path)
-        utils_analyse.getWordCloud('13038011192', '13038011192', self.group.data[0], self.group.data[1],
-                                   self.group.data[2], path, image_mask_path='map.png')
-        print(path)
-        self.l1.setGeometry(0, 0, 540, 455)
-        # self.l1.setMidLineWidth(540)
-        # self.l1.setFixedHeight(600)
-
-        # self.worldcloud = QPixmap('./images/ciyun.jpg').scaled(self.l1.width(), self.l1.height())
-        self.worldcloud = QPixmap(path).scaled(self.l1.width(), self.l1.height())
-        self.l1.setPixmap(self.worldcloud)
-
-        self.l1.setStyleSheet('background: rgb(255,255,255)')
-        # self.l1.setMinimumSize(620, 640)
-        # main_layout_3.addWidget(buntton)
-        # self.l1.setScaledContents(True) # 自适应
-        self.W_left_layout.addWidget(self.l1)
-        # print("[3]flag")
+        self.layout_1.addWidget(self.W_left_1)
+        self.layout_1.addWidget(self.group)
+        self.stack1.setLayout(self.layout_1)
 
     # 关键词提醒
-    # --------未完工------------#
     def stack2UI(self):
-        main_layout_2 = QGridLayout()
-        main_layout_2.setContentsMargins(0, 0, 0, 0)
-        # self.stack2.resize(620, 600)
-        self.stack2.setLayout(main_layout_2)
-        buntton = QPushButton('[关键词]功能正在紧张开发中balabal')
-        # btn = QPushButton
-        # btn.setFrameShape
-        # buntton.setGeometry(0,300,100,40)
-        # buntton.setStyleSheet('backgroud:rgb(33,33,33)'；)
-        # buntton.setStyleSheet('background: rgb(19,60,85);')
-        # buntton.setMinimumSize(620, 600)
-        main_layout_2.addWidget(buntton)
+        # 数据库操作,获取当前用户名+微信号的已有关键词列表keyword_list
+        keyword_list = True
+        ######对对，初始化的时候要调用一次，但是后续具体弄得时候还得再调用，别忘了#########################
+        self.keyword_face = KeywordLogic(keyword_list)  # 左侧关键词生成
+        """水平布局"""
+        self.layout_2 = QGridLayout()
+        self.layout_2.setContentsMargins(0, 0, 0, 0)
+        """加入主体"""
+        self.layout_2.addWidget(self.keyword_face)
+        self.stack2.setLayout(self.layout_2)
+        """我想实现点击空白部分，群聊消失，这部分应该设置为实时监听，不然只会调用一次"""
+        if self.sender()==self.findChild(QScrollArea,"SA_keyword"):
+            self.keyword_face.closegroup()
 
     # 群发助手
     def stack3UI(self):
@@ -349,21 +214,353 @@ class Main_Window(QWidget):
 
 # ----------------右边页面的类-------------#
 
+from scroll import Group_Form
+class GroupLogic(QFrame, Group_Form):
+    """
+    属于：热词分析
+    用途：动态生成群聊列表
+    """
+    def __init__(self, groupname_list, parent=None):
+        super(GroupLogic, self).__init__(parent)
+        """初始化函数"""
+        self.setupUi(self)
+        self.retranslateUi(self)
+        """初始化list"""
+        self.data = ['a', 'b', 'c']
+        """初始化列表"""
+        # self.create_element()
+        """初始化搜索框"""
+        # self.LE_search.setTextMargins(0, 0, 0, 0)
+        self.LE_search.setPlaceholderText("搜索")
+        ################################# QSS ##################################
+        self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
+                           'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
+                           'QScrollBar{width:2px;}'
+                           'QPushButton{background-color: rgb(255,255,255,100);border:1px;}'
+                           'QComboBox{border:0px;border-radius:3px;background: rgb(255,255,255,100);}'
+                           'QComboBox:editable{background:rgb(255,255,255,100);}')
+
+    def create_element(self, groupname_list):
+        """
+        给定参数，动态生成全部群组
+        :return:
+        """
+        self.topFiller = QtWidgets.QWidget()
+        self.topFiller.setContentsMargins(0, 0, 0, 0)
+        for button in range(len(groupname_list)):
+            self.PB_group = QtWidgets.QPushButton(self.topFiller)
+            self.PB_group.resize(270, 60)
+            self.PB_group.setText(str(groupname_list[button]))
+            self.topFiller.setMinimumSize(0, (button + 1) * 60)
+            self.PB_group.move(0, button * 61)
+            # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
+            self.PB_group.clicked.connect(lambda: self.choose_group(self.sender().text()))
+        self.SA_group.setWidget(self.topFiller)
+        self.SA_group.setContentsMargins(0, 0, 0, 0)
+
+    def choose_group(self, group_name):
+        """
+        获取群名及时间段，并传给后端
+        """
+        # 获取群名#
+        # 获取时间段#
+        from datetime import datetime, timedelta
+        end_Time = datetime.now()
+        # 根据选择按钮文本，获取start_Time
+        time_Text = self.CBB_time.currentText()
+        if (time_Text == "过去6小时"):
+            start_Time = end_Time - timedelta(hours=6)
+        elif (time_Text == "过去24小时"):
+            start_Time = end_Time - timedelta(hours=24)
+        elif (time_Text == "过去三天"):
+            start_Time = end_Time - timedelta(days=3)
+        elif (time_Text == "过去一周"):
+            start_Time = end_Time - timedelta(days=7)
+        # 将时间转为int#
+        start_Time_Int = int(start_Time.strftime("%Y%m%d%H%M%S"))
+        end_Time_Int = int(end_Time.strftime("%Y%m%d%H%M%S"))
+        self.data.clear()
+        self.data.insert(0, group_name)
+        self.data.insert(1, start_Time_Int)
+        self.data.insert(2, end_Time_Int)
+        print(self.data)
+        self.mid_dynamically()
+
+    def mid_init(self):
+        """
+        初始的热词分析界面
+        :return:
+        """
+        self.W_left_layout_1 = QVBoxLayout()
+        self.W_left_layout_1.setContentsMargins(0, 0, 0, 0)
+        self.l1 = QLabel(self)  # 图片
+        self.l1.setGeometry(0, 0, 540, 200)
+        self.logo = QPixmap('./images/logo-p.png').scaled(self.l1.width(), self.l1.height())
+        self.l1.setPixmap(self.logo)
+        self.l2 = QLabel(self)
+        self.l2.setText('请在右侧列表中选择你感兴趣的群组及时间段')
+        self.l3 = QLabel(self)
+        self.l3.setText('开启你的【热词分析】之旅~')
+        # 间隔区
+        self.l4 = QtWidgets.QLabel(self)
+        self.l5 = QtWidgets.QLabel(self)
+        # 添加控件
+        self.W_left_layout_1.addWidget(self.l4)  # , 0, QtCore.Qt.AlignHCenter
+        self.W_left_layout_1.addWidget(self.l1, 0, QtCore.Qt.AlignHCenter)
+        self.W_left_layout_1.addWidget(self.l2, 0, QtCore.Qt.AlignHCenter)
+        self.W_left_layout_1.addWidget(self.l3, 0, QtCore.Qt.AlignHCenter)
+        self.W_left_layout_1.addWidget(self.l5)
+        ################################# QSS ##################################
+        self.l1.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);}')
+        self.l2.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);font-family:微软雅黑;font-size:20px;font-weight:bold;}')
+        self.l3.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);font-family:微软雅黑;font-size:20px;font-weight:bold;}')
+        self.l4.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);}')
+        self.l5.setStyleSheet('QLabel{background-color:rgb(0,0,0,0);}')
+        return self.W_left_layout_1
+
+    def mid_dynamically(self):
+        print("mid_dynamically come in")
+        # 先把初始化的东西都删掉
+        self.l4.close()
+        self.l2.close()
+        self.l3.close()
+        self.l5.close()
+        print("llll closed！")
+        # -----------------------再插入词云--------------------------------#
+        # 生成路径
+        path = 'result/' + str(time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))) + '.jpg'
+        print("path ok")
+        #######################这句不能用#############################
+        utils_analyse.getWordCloud('13038011192', '13038011192', self.data[0], self.data[1],
+                                   self.data[2], path, image_mask_path='map.png')
+        print(path)
+        self.l1.setGeometry(0, 0, 540, 455)
+        self.worldcloud = QPixmap(path).scaled(self.l1.width(), self.l1.height())
+        self.l1.setPixmap(self.worldcloud)
+        self.l1.setStyleSheet('background: rgb(255,255,255)')
+        self.W_left_layout_1.addWidget(self.l1)
+        # print("over")
+
+    def searchgroup(self):
+        """
+        搜索框搜索指定群组，并显示
+        :return:
+        """
+        pass
+
+
+
+
+from keyword import Keyword_Form
+class KeywordLogic(QFrame, Keyword_Form):
+    """
+    属于：关键词
+    用途：生成关键词
+    """
+
+    def __init__(self, keyword_list, parent=None):
+        super(KeywordLogic, self).__init__(parent)
+        """初始化函数"""
+        self.setupUi(self)
+        self.retranslateUi(self)
+        """初始化输入框"""
+        self.LE_edit.setPlaceholderText("新建关键词")
+        """初始化ACTION"""
+        self.init_keyword(keyword_list)
+        self.PB_add.clicked.connect(lambda: self.add_keyword)
+        ################################# QSS ##################################
+        self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
+                           'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
+                           'QScrollBar{width:2px;}'
+                           'QPushButton{background-color: rgb(255,255,255,100);border:1px;}'
+                           'QComboBox{border:0px;border-radius:3px;background: rgb(255,255,255,100);}')
+
+
+    """左self.verticalLayout右self.groupkey两个页面应该要事先设定好最大、最小值，再扔进self.horizontalLayout"""
+    def init_keyword(self, keyword_list):
+        """
+        生成初始关键词列表
+        关键词用按钮生成
+        选中高亮
+        :return:
+        """
+        for item in range(len(keyword_list)):
+            self.PB_keyword = QtWidgets.QPushButton()
+            # self.PB_keyword.setMinimumSize(QtCore.QSize(200, 0))
+            self.PB_keyword.setMaximumSize(QtCore.QSize(200, 0))
+            self.PB_group.setText(str(keyword_list[item]))
+            self.gridLayout.addWidget(self.PB_keyword, item / 3, item % 3, 1, 1)
+            # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
+            self.PB_keyword.clicked.connect(lambda: self.select_scope(self.sender().text()))
+        self.SA_keyword.setContentsMargins(0, 0, 0, 0)
+
+    def add_keyword(self):
+        """
+         添加新生成的关键词
+        :return:
+        """
+        # 数据库操作：在创建一个新的关键字的时候，要求自动将所有群聊标为未选
+        keyword = self.LE_edit.text()
+        self.PB_keyword = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
+        self.PB_keyword.setMaximumSize(QtCore.QSize(200, 0))
+        self.PB_group.setText(str(keyword))
+        # 数据库操作，再获取一次keyword_list
+        get now keyword_list
+        self.gridLayout.addWidget(self.PB_keyword, len(keyword_list) / 3, len(keyword_list) % 3, 1, 1)
+        # 数据库操作，纯群聊名称，不含状态，所以数据库要做些处理
+        # get grouplist
+        try:
+            if setKeywords(userid,wxid,keyword):
+                print("ADD MEW KEYWORD SUCCESS")
+        except:
+            print("ADD MEW KEYWORD FALSE")
+        # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
+        self.PB_keyword.clicked.connect(lambda: self.select_scope(self.sender().text()))
+
+    def select_scope(self, keyword):
+        """
+        被链接：add_keyword 在生成新按钮时链接
+        action：点击关键词按钮，出现群聊列表，并进行相关操作
+        :param keyword:
+        :return:
+        """
+        self.groupkey=GkeywordLogic(keyword)
+        self.horizontalLayout.addWidget(self.groupkey)
+
+    def closegroup(self):
+        """
+        用途：关闭当前的群聊列表
+        :return:
+        """
+        self.groupkey.close()
+
+
+
+
+"""注意切换关键词的时候，上一个的群聊列表要么清空，要么关闭"""
+from scroll_keyword import Gkeyword_Form
+class GkeywordLogic(QFrame, Gkeyword_Form):
+    """
+    属于：关键词
+    用途：生成群聊列表
+    区别：用QCheckBox实现群聊
+    """
+    def __init__(self, keyword, parent=None):
+        super(GkeywordLogic, self).__init__(parent)
+        """初始化函数"""
+        self.setupUi(self)
+        self.retranslateUi(self)
+        """初始化变量"""
+        self.keyword = keyword
+        self.data = ['a', 'b']
+        self.groupswithstate = []
+        """初始化搜索框"""
+        self.LE_search.setPlaceholderText("搜索")
+        """初始化ACTION"""
+        self.create_element()
+        self.PB_confirm.clicked.connect(lambda: self.confirm)
+        ################################# QSS ##################################
+        self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
+                           'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
+                           'QScrollBar{width:2px;}'
+                           'QPushButton{background-color: rgb(255,255,255,100);border:1px;}'
+                           'QComboBox{border:0px;border-radius:3px;background: rgb(255,255,255,100);}')
+
+    def create_element(self):
+        """
+        给定参数，动态生成全部群组
+        :return:
+        """
+        # 数据库操作：根据关键字返回的群聊+状态，checkbox置选中或未选中
+        """ 不行，我还是需要一个能将所有群聊都返回的函数，李翔你就认命吧 """
+        groupname_list = getGroupName(userid, wxid, self.keyword)  # 包含字典的list吧
+        self.topFiller = QtWidgets.QWidget()
+        self.topFiller.setContentsMargins(0, 0, 0, 0)
+        for item in range(len(groupname_list)):
+            self.CB_group = QtWidgets.QCheckBox(self.topFiller)
+            self.CB_group.resize(270, 60)
+            self.CB_group.setText(str(groupname_list[item].key))
+            if groupname_list[item].velue:
+                self.CB_group.setChecked(True)  # 存在即选中
+            self.topFiller.setMinimumSize(0, (item + 1) * 60)
+            self.CB_group.move(0, item * 61)
+            # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
+            # self.CB_group.clicked.connect(lambda: self.choose_group(self.sender().text()))
+        self.SA_group.setWidget(self.topFiller)
+        self.SA_group.setContentsMargins(0, 0, 0, 0)
+
+    def confirm(self):
+        """
+        一次性发送消息给数据库
+        :return:
+        """
+        # 非数据库操作，同样在点击确认按钮时，获取作用时间
+        from datetime import datetime, timedelta
+        end_Time = datetime.now()
+        # 根据选择按钮文本，获取start_Time
+        time_Text = self.CBB_time.currentText()
+        if (time_Text == "过去6小时"):
+            start_Time = end_Time - timedelta(hours=6)
+        elif (time_Text == "过去24小时"):
+            start_Time = end_Time - timedelta(hours=24)
+        elif (time_Text == "过去三天"):
+            start_Time = end_Time - timedelta(days=3)
+        elif (time_Text == "过去一周"):
+            start_Time = end_Time - timedelta(days=7)
+        # 将时间转为int#
+        start_Time_Int = int(start_Time.strftime("%Y%m%d%H%M%S"))
+        end_Time_Int = int(end_Time.strftime("%Y%m%d%H%M%S"))
+        self.data.clear()
+        self.data.insert(0, start_Time_Int)
+        self.data.insert(1, end_Time_Int)
+        print(self.data)
+        # 数据库操作：点击确认按钮,插入被选中的群聊列表（或者字典+状态）、当前关键字
+        allgroup = self.findChild(QCheckBox)
+        for item in range(allgroup):
+            currentgroup = {}
+            currentgroup[item.text()] = item.isChecked()
+            self.groupswithstate.append(currentgroup)
+        try:
+            if setKeywords(userid, wxid, self.keyword, self.groupswithstate):
+                self.diasuccess()   # 用户可见
+                print("DB INSTER SUCCESS")  # 调试方便
+        except:
+            print("DB INSTER ERROR")
+
+    def diasuccess(self):
+        """
+        类别：弹窗
+        作用：确认数据设置成功
+        操作：2秒自动关闭
+        :return:
+        """
+        self.dialog = QWidget.QDialog()
+        self.dialog.setWindowFlags(Qt.FramelessWindowHint) # 去边框，不知道行不行
+        self.dialog.resize(150, 60)
+        self.label = QtWidgets.QLabel(self.dialog)
+        self.label.setGeometry(QtCore.QRect(0, 0, 150, 60))
+        font = QtGui.QFont()
+        font.setFamily("微软雅黑")
+        font.setPointSize(14)
+        self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setObjectName("label")
+        self.label.setText("设置成功")
+        timer = QTimer()
+        timer.start(2000)
+        timer.stop()
+        self.dialog.close()
+
 
 # ---------------主函数------------------------#
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    # style = open(r"../Qss/MetroUI.qss", "r", encoding='utf-8')
-    # style_str = style.read()
-    # app.setStyleSheet(style_str)
-
     # 创建wxpy子进程
     # 传递的参数分别为(管道中子进程的一端) (userid) (微信id)  这里默认微信id与userid一致
     wxpy_process = Process(target=utils_wxpy.createWxpyProcess, args=(child_conn, '13038011192', '13038011192'))
     # 启动wxpy子进程
     wxpy_process.start()
-
     # 接受登录状态
     recv = parent_conn.recv()
     # 登陆成功
@@ -373,18 +570,13 @@ if __name__ == '__main__':
     elif recv == 'fail':
         print('[-]bot创建失败 即将退出')
         exit(0)
-
     # 向子进程请求获得群聊名称 参数为(管道中父进程的一端)
     groupnames = utils_wxpy.getGroupnames(parent_conn)
-
     print('[+]创建窗口中...')
-
     # 初始化功能页面 传入的参数为[群聊名称列表]
     demo = Main_Window(groupnames)
-
     # demo.LeftTabWidget.currentRowChanged.connect(s.handle_click)
     demo.close_signal.connect(demo.close)
-
     # 功能页面显示
     demo.show()
     # 安全退出

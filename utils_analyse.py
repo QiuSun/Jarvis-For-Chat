@@ -1,4 +1,4 @@
-import jieba.posseg as psg
+from jieba import posseg as psg
 import numpy as np
 from PIL import Image
 from wordcloud import WordCloud
