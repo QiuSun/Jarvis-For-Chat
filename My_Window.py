@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QFrame
 from multiprocessing import Pipe, Process
+import database as db
 import time
 import utils_analyse
 import utils_wxpy
@@ -77,7 +78,7 @@ class Main_Window(QWidget):
         self.stack3 = QWidget()
         self.stack4 = QWidget()
         self.stack1UI(groupname_list)
-        self.stack2UI()
+        self.stack2UI(groupname_list)
         self.stack3UI()
         self.stack4UI()
         self.stack.addWidget(self.stack1)
@@ -109,20 +110,20 @@ class Main_Window(QWidget):
         self.stack1.setLayout(self.layout_1)
 
     # 关键词提醒
-    def stack2UI(self):
+    def stack2UI(self, groupname_list):
+        pass
         # 数据库操作,获取当前用户名+微信号的已有关键词列表keyword_list
-        keyword_list = True
+        keyword_list = getkeywords()
+        # """测试专用"""
+        # keyword_list=["@全体成员","柯逍","beta版"]
         ######对对，初始化的时候要调用一次，但是后续具体弄得时候还得再调用，别忘了#########################
-        self.keyword_face = KeywordLogic(keyword_list)  # 左侧关键词生成
+        self.keyword_face = KeywordLogic(keyword_list, groupname_list)  # 左侧关键词生成
         """水平布局"""
         self.layout_2 = QGridLayout()
         self.layout_2.setContentsMargins(0, 0, 0, 0)
         """加入主体"""
         self.layout_2.addWidget(self.keyword_face)
         self.stack2.setLayout(self.layout_2)
-        """我想实现点击空白部分，群聊消失，这部分应该设置为实时监听，不然只会调用一次"""
-        if self.sender()==self.findChild(QScrollArea,"SA_keyword"):
-            self.keyword_face.closegroup()
 
     # 群发助手
     def stack3UI(self):
@@ -351,14 +352,14 @@ class GroupLogic(QFrame, Group_Form):
 
 
 
-from keyword import Keyword_Form
-class KeywordLogic(QFrame, Keyword_Form):
+from keywords import Keyword_Form
+class KeywordLogic(QFrame, Keyword_Form ):
     """
     属于：关键词
     用途：生成关键词
     """
 
-    def __init__(self, keyword_list, parent=None):
+    def __init__(self, keyword_list, groupname_list, parent=None):
         super(KeywordLogic, self).__init__(parent)
         """初始化函数"""
         self.setupUi(self)
@@ -366,17 +367,14 @@ class KeywordLogic(QFrame, Keyword_Form):
         """初始化输入框"""
         self.LE_edit.setPlaceholderText("新建关键词")
         """初始化ACTION"""
+        self.grouplist = groupname_list
         self.init_keyword(keyword_list)
-        self.PB_add.clicked.connect(lambda: self.add_keyword)
-        ################################# QSS ##################################
-        self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
-                           'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
-                           'QScrollBar{width:2px;}'
-                           'QPushButton{background-color: rgb(255,255,255,100);border:1px;}'
-                           'QComboBox{border:0px;border-radius:3px;background: rgb(255,255,255,100);}')
+        self.PB_add.clicked.connect(self.add_keyword)
+
 
 
     """左self.verticalLayout右self.groupkey两个页面应该要事先设定好最大、最小值，再扔进self.horizontalLayout"""
+    """我想实现点击空白部分，群聊消失，这部分应该设置为实时监听，不然只会调用一次"""
     def init_keyword(self, keyword_list):
         """
         生成初始关键词列表
@@ -387,12 +385,45 @@ class KeywordLogic(QFrame, Keyword_Form):
         for item in range(len(keyword_list)):
             self.PB_keyword = QtWidgets.QPushButton()
             # self.PB_keyword.setMinimumSize(QtCore.QSize(200, 0))
-            self.PB_keyword.setMaximumSize(QtCore.QSize(200, 0))
-            self.PB_group.setText(str(keyword_list[item]))
-            self.gridLayout.addWidget(self.PB_keyword, item / 3, item % 3, 1, 1)
+            # self.PB_keyword.setMaximumSize(QtCore.QSize(200, 0))
+            self.PB_keyword.setText(str(keyword_list[item])) # 显示
+            self.PB_keyword.setObjectName(str(keyword_list[item])) # 类型名
+            self.gridLayout.addWidget(self.PB_keyword, item / 3, item % 3, 1, 1)  #
             # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
             self.PB_keyword.clicked.connect(lambda: self.select_scope(self.sender().text()))
+            # 右键删除关键词
+            self.PB_keyword.setContextMenuPolicy(Qt.CustomContextMenu)
+            self.PB_keyword.customContextMenuRequested[QtCore.QPoint].connect(lambda :self.showcontextmenu(self.sender().text()))  # 右键点击时显示
+            self.contextMenu = QtWidgets.QMenu(self)
+            self.action = self.contextMenu.addAction("删除")
+            self.action.triggered.connect(lambda: self.rightdelet(self.PB_clicked))
         self.SA_keyword.setContentsMargins(0, 0, 0, 0)
+
+    def showcontextmenu(self,PB_name):
+        self.PB_clicked=PB_name
+        self.contextMenu.show()
+        self.contextMenu.exec_(QCursor.pos())  # 在鼠标位置显示
+
+    def rightdelet(self, oname):
+        try:
+            self.findChild(QPushButton,oname).close()  # 尝试删除关键词
+            # 数据库操作，删除关键词
+            try:
+                # 数据库操作，获取用户ID和微信ID
+                uidwid = db.getUseridAndWxidWithLogStatus()
+                #  数据库操作，删除关键词
+                if db.deleteKeyword(uidwid[0],uidwid[1],oname):
+                    print("Delete keyword success")
+            except:
+                print("db for delete keyword error")
+            self.closegroup()  # 尝试删除群聊列表
+            # 数据库操作，获取当前关键词列表
+            keyword_list = db.getkeywords()
+            # """测试专用"""
+            # keyword_list=["right","delet"]
+            self.init_keyword(keyword_list)  # 重新生成关键词列表
+        except:
+            print("No such button")
 
     def add_keyword(self):
         """
@@ -400,17 +431,23 @@ class KeywordLogic(QFrame, Keyword_Form):
         :return:
         """
         # 数据库操作：在创建一个新的关键字的时候，要求自动将所有群聊标为未选
+        print("enter")
         keyword = self.LE_edit.text()
-        self.PB_keyword = QtWidgets.QPushButton(self.scrollAreaWidgetContents)
-        self.PB_keyword.setMaximumSize(QtCore.QSize(200, 0))
-        self.PB_group.setText(str(keyword))
+        print(keyword)
+        self.PB_keyword = QtWidgets.QPushButton()
+        # self.PB_keyword.setMaximumSize(QtCore.QSize(200, 0))
+        self.PB_keyword.setText(str(keyword))
+        self.PB_keyword.setObjectName(keyword)
         # 数据库操作，再获取一次keyword_list
-        get now keyword_list
-        self.gridLayout.addWidget(self.PB_keyword, len(keyword_list) / 3, len(keyword_list) % 3, 1, 1)
-        # 数据库操作，纯群聊名称，不含状态，所以数据库要做些处理
-        # get grouplist
+        keyword_list = db.getkeywords()
+        # """测试专用"""
+        # keyword_list=["add","keyword","third"]
+        self.gridLayout.addWidget(self.PB_keyword, len(keyword_list) / 3, len(keyword_list) % 3, 1, 1) #
         try:
-            if setKeywords(userid,wxid,keyword):
+            # 数据库操作，获取用户ID和微信ID
+            uidwid = db.getUseridAndWxidWithLogStatus()
+            # 数据库操作，插入新关键词并初始化所有群聊为0
+            if db.setKeywords_0(uidwid[0],uidwid[1],keyword,self.grouplist):
                 print("ADD MEW KEYWORD SUCCESS")
         except:
             print("ADD MEW KEYWORD FALSE")
@@ -424,7 +461,12 @@ class KeywordLogic(QFrame, Keyword_Form):
         :param keyword:
         :return:
         """
-        self.groupkey=GkeywordLogic(keyword)
+        try:
+            if self.findChild(QScrollArea,"SA_group"):
+                self.groupkey.close()
+        except:
+            print("select_scope error")
+        self.groupkey = GkeywordLogic(keyword)
         self.horizontalLayout.addWidget(self.groupkey)
 
     def closegroup(self):
@@ -432,8 +474,22 @@ class KeywordLogic(QFrame, Keyword_Form):
         用途：关闭当前的群聊列表
         :return:
         """
-        self.groupkey.close()
+        try:
+            self.groupkey.close()
+        except:
+            print("closegroup error")
 
+    def mousePressEvent(self, event):
+        """
+        action：点击空白位置，群组列表消失
+        :param event:
+        :return:
+        """
+        if event.buttons() == QtCore.Qt.LeftButton:
+            try:
+               self.groupkey.close()
+            except:
+                print("mousePressEvent: not exit grouopkey")
 
 
 
@@ -452,13 +508,12 @@ class GkeywordLogic(QFrame, Gkeyword_Form):
         self.retranslateUi(self)
         """初始化变量"""
         self.keyword = keyword
-        self.data = ['a', 'b']
-        self.groupswithstate = []
+        self.groupschange = []
         """初始化搜索框"""
         self.LE_search.setPlaceholderText("搜索")
         """初始化ACTION"""
         self.create_element()
-        self.PB_confirm.clicked.connect(lambda: self.confirm)
+        self.PB_confirmgroup.clicked.connect(self.confirmgroup)
         ################################# QSS ##################################
         self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
                            'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
@@ -473,59 +528,47 @@ class GkeywordLogic(QFrame, Gkeyword_Form):
         """
         # 数据库操作：根据关键字返回的群聊+状态，checkbox置选中或未选中
         """ 不行，我还是需要一个能将所有群聊都返回的函数，李翔你就认命吧 """
-        groupname_list = getGroupName(userid, wxid, self.keyword)  # 包含字典的list吧
+        try:
+            # 数据库操作，获取用户ID和微信ID
+            uidwid = db.getUseridAndWxidWithLogStatus()
+            # 数据库操作，获取关键词的历史作用群聊
+            groupname_list = db.keyWordGroupStatus(uidwid[0], uidwid[1], self.keyword)  # 包含字典的list
+        except:
+            print("db in create_element error")
         self.topFiller = QtWidgets.QWidget()
         self.topFiller.setContentsMargins(0, 0, 0, 0)
+        # """测试专用"""
+        # groupname_list=[("create",1),("element",0)]
         for item in range(len(groupname_list)):
             self.CB_group = QtWidgets.QCheckBox(self.topFiller)
             self.CB_group.resize(270, 60)
-            self.CB_group.setText(str(groupname_list[item].key))
-            if groupname_list[item].velue:
+            self.CB_group.setText(str(groupname_list[item][0]))
+            if groupname_list[item][1]:
                 self.CB_group.setChecked(True)  # 存在即选中
             self.topFiller.setMinimumSize(0, (item + 1) * 60)
             self.CB_group.move(0, item * 61)
-            # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
-            # self.CB_group.clicked.connect(lambda: self.choose_group(self.sender().text()))
         self.SA_group.setWidget(self.topFiller)
         self.SA_group.setContentsMargins(0, 0, 0, 0)
 
-    def confirm(self):
+    def confirmgroup(self):
         """
         一次性发送消息给数据库
         :return:
         """
-        # 非数据库操作，同样在点击确认按钮时，获取作用时间
-        from datetime import datetime, timedelta
-        end_Time = datetime.now()
-        # 根据选择按钮文本，获取start_Time
-        time_Text = self.CBB_time.currentText()
-        if (time_Text == "过去6小时"):
-            start_Time = end_Time - timedelta(hours=6)
-        elif (time_Text == "过去24小时"):
-            start_Time = end_Time - timedelta(hours=24)
-        elif (time_Text == "过去三天"):
-            start_Time = end_Time - timedelta(days=3)
-        elif (time_Text == "过去一周"):
-            start_Time = end_Time - timedelta(days=7)
-        # 将时间转为int#
-        start_Time_Int = int(start_Time.strftime("%Y%m%d%H%M%S"))
-        end_Time_Int = int(end_Time.strftime("%Y%m%d%H%M%S"))
-        self.data.clear()
-        self.data.insert(0, start_Time_Int)
-        self.data.insert(1, end_Time_Int)
-        print(self.data)
-        # 数据库操作：点击确认按钮,插入被选中的群聊列表（或者字典+状态）、当前关键字
-        allgroup = self.findChild(QCheckBox)
-        for item in range(allgroup):
-            currentgroup = {}
-            currentgroup[item.text()] = item.isChecked()
-            self.groupswithstate.append(currentgroup)
-        try:
-            if setKeywords(userid, wxid, self.keyword, self.groupswithstate):
+        allgroup = self.findChildren(QCheckBox)
+        for item in allgroup:
+            if item.isChecked() == True:
+                self.groupschange.append(item.text())
+            try:
+                # 数据库操作，获取用户ID和微信ID
+                uidwid = db.getUseridAndWxidWithLogStatus()
+                # 数据库操作,修改关键词作用的群聊
+                if db.setKeywords_1(uidwid[0], uidwid[1], self.keyword, self.groupschange):
+                    utils_wxpy.updatekey(parent_conn)  # 通知，作用域改变
                 self.diasuccess()   # 用户可见
                 print("DB INSTER SUCCESS")  # 调试方便
-        except:
-            print("DB INSTER ERROR")
+            except:
+                print("DB INSTER ERROR")
 
     def diasuccess(self):
         """
@@ -534,22 +577,25 @@ class GkeywordLogic(QFrame, Gkeyword_Form):
         操作：2秒自动关闭
         :return:
         """
-        self.dialog = QWidget.QDialog()
-        self.dialog.setWindowFlags(Qt.FramelessWindowHint) # 去边框，不知道行不行
-        self.dialog.resize(150, 60)
-        self.label = QtWidgets.QLabel(self.dialog)
-        self.label.setGeometry(QtCore.QRect(0, 0, 150, 60))
-        font = QtGui.QFont()
-        font.setFamily("微软雅黑")
-        font.setPointSize(14)
-        self.label.setFont(font)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
-        self.label.setText("设置成功")
-        timer = QTimer()
-        timer.start(2000)
-        timer.stop()
-        self.dialog.close()
+        self.dialog = Success_Dialog()
+        self.dialog.show()
+
+
+from untitled import Ui_Dialog
+class Success_Dialog(QDialog, Ui_Dialog):
+    """
+    关键词对应群聊设置成功的提示框
+    """
+    def __init__(self, parent=None):
+        super(Success_Dialog, self).__init__(parent)
+        """初始化"""
+        self.setupUi(self)
+        self.retranslateUi(self)
+        self.setWindowFlags(Qt.FramelessWindowHint) # 去边框
+        # 定时
+        timer = QTimer(self)
+        timer.timeout.connect(self.close)
+        timer.start(3000)
 
 
 # ---------------主函数------------------------#

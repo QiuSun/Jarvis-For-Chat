@@ -38,86 +38,44 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item row="0" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <item row="7" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string/>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>10</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="CBB_time">
+      <widget class="QPushButton" name="PB_confirmgroup">
        <property name="minimumSize">
         <size>
-         <width>20</width>
-         <height>23</height>
+         <width>240</width>
+         <height>40</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>微软雅黑</family>
-         <weight>50</weight>
-         <italic>false</italic>
-         <bold>false</bold>
-         <strikeout>false</strikeout>
-         <kerning>true</kerning>
+         <pointsize>14</pointsize>
         </font>
        </property>
-       <property name="cursor">
-        <cursorShape>PointingHandCursor</cursorShape>
+       <property name="text">
+        <string>确定</string>
        </property>
-       <item>
-        <property name="text">
-         <string>过去6小时</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>过去24小时</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>过去三天</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>过去一周</string>
-        </property>
-       </item>
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string/>
        </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>18</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
+      </widget>
      </item>
     </layout>
    </item>
-   <item row="2" column="0">
+   <item row="1" column="0">
     <widget class="QScrollArea" name="SA_group">
      <property name="minimumSize">
       <size>
@@ -155,7 +113,7 @@
         <x>0</x>
         <y>0</y>
         <width>270</width>
-        <height>490</height>
+        <height>519</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -175,7 +133,7 @@
      </widget>
     </widget>
    </item>
-   <item row="1" column="0">
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <spacer name="horizontalSpacer_2">
@@ -218,43 +176,6 @@
         </size>
        </property>
       </spacer>
-     </item>
-    </layout>
-   </item>
-   <item row="8" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="PB_confirm">
-       <property name="minimumSize">
-        <size>
-         <width>240</width>
-         <height>40</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>微软雅黑</family>
-         <pointsize>14</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>确定</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
      </item>
     </layout>
    </item>
