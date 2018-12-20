@@ -5,9 +5,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
-from barabove_py import BarLogic
 
-sys.path.append("..")
 
 
 class Main_Window(QWidget):
@@ -56,14 +54,6 @@ class Main_Window(QWidget):
         self.avatar.setIconSize(QSize(170, 170))
         self.avatar_layout.addWidget(self.avatar, 2, 0, 3, 3)  ##控件名，行，列，占用行数，占用列数，对齐方式
         self.avatar_layout.setAlignment(self.avatar_layout,Qt.AlignRight)
-        # 微信/QQ
-        #self.weixin = QtWidgets.QPushButton()
-        #self.weixin.setFixedSize(QSize(45, 45))
-        #self.weixin.setIcon(QIcon(r'Resource/images/weixin1.png'))
-        #self.avatar_layout.addWidget(self.weixin, 4, 4, 1, 1)
-        #self.avatar_layout.setAlignment(self.weixin, Qt.AlignRight)
-        #self.avatar_layout.setAlignment(self.weixin, Qt.AlignBottom)
-
         ################################# QSS ##################################
         self.setStyleSheet('QWidget{background-color: rgb(255,255,255)}')
         self.LeftTabWidget.setStyleSheet('QWidget{background-color: rgb(228,228,228,90)}')
@@ -72,10 +62,8 @@ class Main_Window(QWidget):
         # 在QStackedWidget对象中填充了4个子控件
         self.stack = QStackedWidget(self)
         self.right_layout = QGridLayout()
-        # self.main_layout.addLayout(self.right_layout,0,5)
         self.stack.setLayout(self.right_layout)
         self.main_layout.addWidget(self.stack, 1, 1, 14, 14)
-        # self.stack.setMinimumSize(620,600)
         ################################# QSS ##################################
         self.stack.setStyleSheet('QWidget{background-color: rgb(0,0,0,10)}')
         # --------------------函数调用------------------------------------------#
@@ -86,16 +74,12 @@ class Main_Window(QWidget):
         # --------------------信号槽设置------------------------------------------#
         # 实现登录交互
         self.avatar.clicked.connect(lambda: self.click_login_up())
-        # 关闭主窗体
-        # self.bara.PB_close.clicked.connect(QApplication.instance().quit)
 
     def center(self):  # 设置窗口居中
         self.qr = self.frameGeometry()
         self.cp = QDesktopWidget().availableGeometry().center()
         self.qr.moveCenter(self.cp)
         self.move(self.qr.topLeft())
-
-
 
     # ----------------右边页面的类-------------#
     # __________________Welcome___________________#

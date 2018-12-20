@@ -22,20 +22,25 @@
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="false" />
+    <show-object-properties value="true" />
     <loaded-nodes>
-      <connection connection-id="462ac28c-b8fa-4929-a456-f83d84791cdd">
-        <schema name="main" object-types="column, constraint, index, table, dataset trigger, view" />
+      <connection connection-id="b06e097d-5437-4f6e-9c98-59026bef4e32">
+        <schema name="main" object-types="table" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="462ac28c-b8fa-4929-a456-f83d84791cdd">
-      <console name="Connection" type="STANDARD" />
+    <connection id="b06e097d-5437-4f6e-9c98-59026bef4e32">
+      <console name="Connection 1" type="STANDARD" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="462ac28c-b8fa-4929-a456-f83d84791cdd" />
+    <connection id="b06e097d-5437-4f6e-9c98-59026bef4e32" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-list connection-id="b06e097d-5437-4f6e-9c98-59026bef4e32" dataset="main.Msg_model" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="b06e097d-5437-4f6e-9c98-59026bef4e32" dataset="main.QQ_group_msg" active-filter-id="EMPTY_FILTER" />
+    <filter-list connection-id="b06e097d-5437-4f6e-9c98-59026bef4e32" dataset="main.User" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -60,10 +65,10 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="462ac28c-b8fa-4929-a456-f83d84791cdd" active="true">
+      <connection id="b06e097d-5437-4f6e-9c98-59026bef4e32" active="true">
         <database>
-          <name value="Connection" />
-          <description value="Jarvis for chat" />
+          <name value="Connection 1" />
+          <description value="" />
           <database-type value="SQLITE" />
           <config-type value="BASIC" />
           <database-version value="3.21" />
@@ -75,7 +80,7 @@
           <port value="" />
           <database value="" />
           <files>
-            <file path="E:\Users\lenovo\PycharmProjects\Jarvis\Jarvis-forChat.db" schema="main" />
+            <file path="E:\Users\lenovo\PycharmProjects\Jarvis-For-Chat\Jarvis-forChat.db" schema="main" />
           </files>
           <os-authentication value="false" />
           <empty-password value="false" />

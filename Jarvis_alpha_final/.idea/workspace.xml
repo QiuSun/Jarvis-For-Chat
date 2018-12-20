@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="96170124-2d45-48cf-9bd1-078cad511207" name="Default" comment="" />
+    <list default="true" id="004732a5-0ce5-4c07-9170-4e46f093f30e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/My_Window.py" beforeDir="false" afterPath="$PROJECT_DIR$/My_Window.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -9,16 +14,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FavoritesManager">
-    <favorites_list name="Jarvis" />
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="My_Window.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/My_Window.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="131">
-              <caret line="261" column="51" lean-forward="true" selection-start-line="261" selection-start-column="51" selection-end-line="261" selection-end-column="51" />
+            <state relative-caret-position="88">
+              <caret line="116" column="75" lean-forward="true" selection-start-line="116" selection-start-column="75" selection-end-line="116" selection-end-column="75" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -26,23 +28,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scroll.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scroll.py">
+      <file leaf-file-name="Welcome_Window.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Welcome_Window.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="1914">
+              <caret line="93" column="46" selection-start-line="105" selection-start-column="53" selection-end-line="105" selection-end-column="67" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scroll_py.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scroll_py.py">
+      <file leaf-file-name="database.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="84" column="11" lean-forward="true" selection-start-line="84" selection-start-column="11" selection-end-line="84" selection-end-column="11" />
-              <folding>
-                <element signature="e#35#45#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="141">
+              <caret line="358" column="13" selection-start-line="358" selection-start-column="13" selection-end-line="358" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -52,62 +54,34 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="SQL Script" />
         <option value="Python Script" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Regist_Login.py" />
-        <option value="$PROJECT_DIR$/Win_login.py" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/PasswdDialog.py" />
-        <option value="$PROJECT_DIR$/Win_regist.py" />
-        <option value="$PROJECT_DIR$/login_ui.py" />
-        <option value="$PROJECT_DIR$/login_ui_py.py" />
-        <option value="$PROJECT_DIR$/1_login.py" />
-        <option value="$PROJECT_DIR$/user.db" />
-        <option value="$PROJECT_DIR$/MySingupPY.py" />
-        <option value="$PROJECT_DIR$/MyloginUI.py" />
-        <option value="$PROJECT_DIR$/ViewSqlite.py" />
-        <option value="66b52c39-8ba7-4eca-8a70-2050b29c91cc/consoles/user.db" />
-        <option value="48c3dc76-0bea-4c21-b30f-30286b47b234/consoles/Connection" />
-        <option value="f57c1723-50f6-4263-aa48-cd0878e24d8a/consoles/Connection 1" />
-        <option value="$PROJECT_DIR$/MyloginPY.py" />
-        <option value="$PROJECT_DIR$/Text_messaging.py" />
-        <option value="$PROJECT_DIR$/MySignupPY.py" />
-        <option value="$PROJECT_DIR$/MySignupUI.py" />
-        <option value="$PROJECT_DIR$/my_signup_ui.py" />
-        <option value="$PROJECT_DIR$/my_login_ui.py" />
-        <option value="$PROJECT_DIR$/NNNN.py" />
-        <option value="$PROJECT_DIR$/Signup.py" />
-        <option value="$PROJECT_DIR$/Login.py" />
-        <option value="$PROJECT_DIR$/my_total.py" />
-        <option value="2070d9aa-836a-4efa-97f9-c28a3da6afe3/consoles/Connection" />
-        <option value="$PROJECT_DIR$/db_IF.py" />
-        <option value="$PROJECT_DIR$/tttttest.py" />
-        <option value="$PROJECT_DIR$/hhhhhhh.py" />
-        <option value="$PROJECT_DIR$/scroll_style.qss" />
-        <option value="$PROJECT_DIR$/style_syy.qss" />
-        <option value="$PROJECT_DIR$/barabove_style.qss" />
-        <option value="$PROJECT_DIR$/Main_Window_Frame.py" />
-        <option value="$PROJECT_DIR$/Barabove.py" />
-        <option value="$PROJECT_DIR$/QSS/barabove_style.qss" />
-        <option value="$PROJECT_DIR$/barabove_py.py" />
-        <option value="$PROJECT_DIR$/my_signup_py.py" />
-        <option value="$PROJECT_DIR$/my_login_py.py" />
-        <option value="$PROJECT_DIR$/Welcome_Window.py" />
-        <option value="$PROJECT_DIR$/scroll_py1.py" />
-        <option value="$PROJECT_DIR$/utils.py" />
         <option value="$PROJECT_DIR$/scroll_py.py" />
+        <option value="$PROJECT_DIR$/Welcome_Window.py" />
+        <option value="$PROJECT_DIR$/utils_analyse.py" />
+        <option value="$PROJECT_DIR$/scroll.py" />
+        <option value="$PROJECT_DIR$/keyword.py" />
+        <option value="$PROJECT_DIR$/my_signup_py.py" />
+        <option value="$PROJECT_DIR$/../../Anaconda3/envs/Python36/Lib/collections/__init__.py" />
+        <option value="$PROJECT_DIR$/untitled.py" />
+        <option value="$PROJECT_DIR$/un.py" />
+        <option value="$PROJECT_DIR$/scroll_keyword.py" />
+        <option value="$PROJECT_DIR$/database.py" />
         <option value="$PROJECT_DIR$/My_Window.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="278" />
+    <option name="x" value="-9" />
+    <option name="y" value="6" />
     <option name="width" value="898" />
     <option name="height" value="734" />
   </component>
@@ -116,24 +90,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Jarvis" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Jarvis" type="462c0819:PsiDirectoryNode" />
+              <item name="Jarvis-For-Chat" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Jarvis-For-Chat" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://E:/Users/lenovo/PycharmProjects/Jarvis/my_signup_py.py&#10;database&#9;null&#9;null" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Jarvis_yuming" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Anaconda3/envs/Python36" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -150,7 +122,7 @@
   </component>
   <component name="RunManager" selected="Python.My_Window">
     <configuration name="My_Window" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Jarvis" />
+      <module name="Jarvis-For-Chat" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -168,7 +140,7 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="Welcome_Window" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Jarvis" />
+      <module name="Jarvis-For-Chat" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -185,8 +157,8 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="my_login_py" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Jarvis" />
+    <configuration name="database" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Jarvis-For-Chat" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -197,14 +169,14 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/my_login_py.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/database.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="scroll" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Jarvis" />
+    <configuration name="un" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Jarvis-For-Chat" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -215,14 +187,14 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scroll.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/un.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="scroll_py" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Jarvis" />
+    <configuration name="untitled" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Jarvis-For-Chat" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -233,26 +205,26 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scroll_py.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/untitled.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
+      <item itemvalue="Python.untitled" />
       <item itemvalue="Python.My_Window" />
+      <item itemvalue="Python.un" />
+      <item itemvalue="Python.database" />
       <item itemvalue="Python.Welcome_Window" />
-      <item itemvalue="Python.my_login_py" />
-      <item itemvalue="Python.scroll_py" />
-      <item itemvalue="Python.scroll" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.My_Window" />
-        <item itemvalue="Python.scroll_py" />
-        <item itemvalue="Python.scroll" />
         <item itemvalue="Python.Welcome_Window" />
-        <item itemvalue="Python.my_login_py" />
+        <item itemvalue="Python.database" />
+        <item itemvalue="Python.un" />
+        <item itemvalue="Python.untitled" />
       </list>
     </recent_temporary>
   </component>
@@ -261,48 +233,37 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="96170124-2d45-48cf-9bd1-078cad511207" name="Default" comment="" />
-      <created>1541580719366</created>
+      <changelist id="004732a5-0ce5-4c07-9170-4e46f093f30e" name="Default" comment="" />
+      <created>1544765206723</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1541580719366</updated>
+      <updated>1544765206723</updated>
     </task>
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48826292" visible="true" weight="0.16741072" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32843137" />
-      <window_info id="DB Browser" order="2" weight="0.19122024" />
-      <window_info anchor="bottom" id="DB Execution Console" order="7" sideWeight="0.49627978" weight="0.32352942" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50074404" side_tool="true" weight="0.30392158" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.4985119" weight="0.32843137" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49925596" visible="true" weight="0.30392158" />
-      <window_info id="Structure" order="1" sideWeight="0.5117371" side_tool="true" weight="0.16741072" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info id="Favorites" order="2" sideWeight="0.5046948" side_tool="true" weight="0.15550596" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39869282" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.16666667" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info id="DB Browser" order="2" visible="true" weight="0.22247024" />
+      <window_info anchor="bottom" id="DB Execution Console" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3289689" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21440262" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="调试" order="7" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="运行" order="7" sideWeight="0.49627978" weight="0.26960784" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -310,189 +271,399 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="1" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/QSS/scroll_style.qss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="19" column="1" lean-forward="true" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/My_Window.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="34" lean-forward="true" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Welcome_Window.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scroll_py.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="24" column="72" selection-start-line="24" selection-start-column="72" selection-end-line="24" selection-end-column="72" />
-          <folding>
-            <element signature="e#35#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scroll.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="13" column="29" lean-forward="true" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/jarvis.db" />
-    <entry file="db://48c3dc76-0bea-4c21-b30f-30286b47b234/consoles/Connection" />
-    <entry file="db://f57c1723-50f6-4263-aa48-cd0878e24d8a/consoles/Connection 1" />
-    <entry file="file://$PROJECT_DIR$/used_login_ui.py" />
-    <entry file="file://$PROJECT_DIR$/used_login_ui_py.py" />
-    <entry file="file://$PROJECT_DIR$/Win_login.py" />
-    <entry file="file://$PROJECT_DIR$/Win_regist.py" />
-    <entry file="file://$PROJECT_DIR$/used_PasswdDialog.py" />
-    <entry file="file://$PROJECT_DIR$/used_main.py" />
-    <entry file="file://$PROJECT_DIR$/ViewSqlite.py" />
-    <entry file="file://$PROJECT_DIR$/Regist_Login.py" />
-    <entry file="file://$PROJECT_DIR$/untitled.py" />
-    <entry file="file://$PROJECT_DIR$/MyloginUI.py" />
-    <entry file="file://$PROJECT_DIR$/MyloginPY.py" />
-    <entry file="file://$PROJECT_DIR$/MySignupPY.py" />
-    <entry file="file://$PROJECT_DIR$/MySignupUI.py" />
-    <entry file="file://$PROJECT_DIR$/Text_messaging.py" />
-    <entry file="file://$PROJECT_DIR$/my_signup_ui.py" />
-    <entry file="file://$PROJECT_DIR$/NNNN.py" />
-    <entry file="file://$PROJECT_DIR$/my_login_ui.py" />
-    <entry file="file://$PROJECT_DIR$/1120-界面切换的研究/主界面初步框架.py" />
-    <entry file="db://2070d9aa-836a-4efa-97f9-c28a3da6afe3/consoles/Connection" />
-    <entry file="db://12b9d37b-eaea-4e7b-a963-d869a25746f6/objects/schemas/main/tables/User" />
-    <entry file="file://$PROJECT_DIR$/tttttest.py" />
-    <entry file="file://$PROJECT_DIR$/hhhhhhh.py" />
-    <entry file="file://$PROJECT_DIR$/db_IF.py" />
     <entry file="file://$PROJECT_DIR$/database.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="90" column="30" lean-forward="true" selection-start-line="90" selection-start-column="30" selection-end-line="90" selection-end-column="30" />
+        <state relative-caret-position="7810">
+          <caret line="355" column="117" selection-start-line="355" selection-start-column="117" selection-end-line="355" selection-end-column="117" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scroll_style.qss" />
-    <entry file="file://$PROJECT_DIR$/style_syy.qss" />
-    <entry file="file://$PROJECT_DIR$/1.py" />
-    <entry file="file://$PROJECT_DIR$/Main_Window_Frame.py" />
-    <entry file="file://$PROJECT_DIR$/barabove_style.qss" />
-    <entry file="file://$PROJECT_DIR$/barabove_py.py">
+    <entry file="file://$PROJECT_DIR$/scroll_keyword.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        <state relative-caret-position="198">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Barabove.py">
+    <entry file="file://$PROJECT_DIR$/un.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="157" column="28" lean-forward="true" selection-start-line="157" selection-start-column="23" selection-end-line="157" selection-end-column="28" />
+        <state relative-caret-position="418">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QSS/style_syy.qss">
+    <entry file="file://$PROJECT_DIR$/untitled.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="31" column="32" lean-forward="true" selection-start-line="31" selection-start-column="32" selection-end-line="31" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Login.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1364">
-          <caret line="68" column="47" lean-forward="true" selection-start-line="68" selection-start-column="47" selection-end-line="68" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_login_py.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils1129.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2236">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Welcome_Window.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="149" column="40" lean-forward="true" selection-start-line="149" selection-start-column="40" selection-end-line="149" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scroll_py1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="880">
-          <caret line="81" column="24" selection-start-line="81" selection-start-column="14" selection-end-line="81" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Signup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="617">
-          <caret line="103" column="36" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/my_signup_py.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2068">
-          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scroll.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-528">
-          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scroll_py.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="84" column="11" lean-forward="true" selection-start-line="84" selection-start-column="11" selection-end-line="84" selection-end-column="11" />
-          <folding>
-            <element signature="e#35#45#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="374">
+          <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/My_Window.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="131">
-          <caret line="261" column="51" lean-forward="true" selection-start-line="261" selection-start-column="51" selection-end-line="261" selection-end-column="51" />
+        <state relative-caret-position="8624">
+          <caret line="392" column="27" selection-start-line="392" selection-start-column="17" selection-end-line="392" selection-end-column="27" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/My_Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="12606">
+          <caret line="573" column="54" lean-forward="true" selection-start-line="573" selection-start-column="54" selection-end-line="573" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_signup_py.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4620">
+          <caret line="210" column="11" selection-start-line="210" selection-start-column="11" selection-end-line="210" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Anaconda3/envs/Python36/Lib/collections/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_login_py.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll_keyword.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1826">
+          <caret line="83" column="23" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keyword.py" />
+    <entry file="file://$PROJECT_DIR$/My_Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="11814">
+          <caret line="547" column="29" selection-end-line="583" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Anaconda3/envs/Python36/Lib/collections/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_login_py.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="42" lean-forward="true" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll_keyword.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1826">
+          <caret line="83" column="23" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keyword.py" />
+    <entry file="file://$PROJECT_DIR$/my_signup_py.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4620">
+          <caret line="210" column="11" lean-forward="true" selection-start-line="210" selection-start-column="11" selection-end-line="210" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/My_Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9350">
+          <caret line="425" column="23" lean-forward="true" selection-start-line="425" selection-start-column="23" selection-end-line="425" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll_keyword.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="990">
+          <caret line="45" column="21" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keyword.py" />
+    <entry file="file://$PROJECT_DIR$/My_Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9526">
+          <caret line="433" column="20" selection-start-line="433" selection-start-column="20" selection-end-line="433" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll_keyword.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="34" lean-forward="true" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keyword.py" />
+    <entry file="file://$PROJECT_DIR$/My_Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8096">
+          <caret line="368" column="9" lean-forward="true" selection-start-line="368" selection-start-column="9" selection-end-line="368" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll_keyword.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="49" lean-forward="true" selection-start-line="6" selection-start-column="49" selection-end-line="6" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/My_Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7216">
+          <caret line="328" column="23" lean-forward="true" selection-start-line="328" selection-start-column="23" selection-end-line="328" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Anaconda3/envs/Python36/Lib/site-packages/itchat/components/login.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="211" selection-start-line="211" selection-end-line="211" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll_py.py" />
+    <entry file="file://$PROJECT_DIR$/../../Anaconda3/envs/Python36/Lib/multiprocessing/process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="257" selection-start-line="257" selection-end-line="257" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Anaconda3/envs/Python36/Lib/multiprocessing/connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="320" selection-start-line="320" selection-end-line="320" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="49" selection-start-line="6" selection-start-column="49" selection-end-line="6" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils_analyse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2368">
+          <caret column="31" lean-forward="true" selection-start-column="31" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../Anaconda3/envs/Python36/Lib/site.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="167" selection-start-line="167" selection-end-line="167" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_login_py.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="115" column="17" lean-forward="true" selection-start-line="115" selection-start-column="17" selection-end-line="115" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keyword.py" />
+    <entry file="file://$PROJECT_DIR$/../../Anaconda3/envs/Python36/Lib/collections/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Login.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/my_signup_py.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils_wxpy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="151" selection-start-line="151" selection-end-line="151" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/un.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/untitled.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="17" column="29" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keywords.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1474">
+          <caret line="67" selection-start-line="67" selection-end-line="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scroll_keyword.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1342">
+          <caret line="61" column="59" selection-start-line="61" selection-start-column="59" selection-end-line="61" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="db://b06e097d-5437-4f6e-9c98-59026bef4e32/objects/schemas/main/tables/User">
+      <provider selected="true" editor-type-id="1.DATA">
+        <state row-count="5" readonly="false">
+          <columns>
+            <column name="userID" position="0" visible="true" />
+            <column name="nickname" position="1" visible="true" />
+            <column name="password" position="2" visible="true" />
+            <column name="tel" position="3" visible="true" />
+            <column name="log_status" position="4" visible="true" />
+            <column name="email" position="5" visible="true" />
+            <column name="user_rank" position="6" visible="true" />
+            <column name="vip_days_remaining" position="7" visible="true" />
+          </columns>
+          <sorting />
+          <content-types />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Welcome_Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1914">
+          <caret line="93" column="46" selection-start-line="105" selection-start-column="53" selection-end-line="105" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="db://b06e097d-5437-4f6e-9c98-59026bef4e32/objects/schemas/main/tables/Msg_model">
+      <provider selected="true" editor-type-id="1.DATA">
+        <state row-count="0" readonly="false">
+          <columns>
+            <column name="No" position="0" visible="true" />
+            <column name="mag_m" position="1" visible="true" />
+            <column name="type" position="2" visible="true" />
+            <column name="userID" position="3" visible="true" />
+          </columns>
+          <sorting />
+          <content-types />
+        </state>
+      </provider>
+    </entry>
+    <entry file="db://b06e097d-5437-4f6e-9c98-59026bef4e32/objects/schemas/main/tables/QQ_group_msg">
+      <provider selected="true" editor-type-id="1.DATA">
+        <state row-count="0" readonly="false">
+          <columns>
+            <column name="userID" position="0" visible="true" />
+            <column name="QQ_id" position="1" visible="true" />
+            <column name="src_QQid" position="2" visible="true" />
+            <column name="src_QQgrp" position="3" visible="true" />
+            <column name="msg_time" position="4" visible="true" />
+            <column name="msg" position="5" visible="true" />
+          </columns>
+          <sorting />
+          <content-types />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="358" column="13" selection-start-line="358" selection-start-column="13" selection-end-line="358" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/My_Window.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="116" column="75" lean-forward="true" selection-start-line="116" selection-start-column="75" selection-end-line="116" selection-end-column="75" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
