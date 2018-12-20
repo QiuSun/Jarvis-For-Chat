@@ -113,11 +113,16 @@ class Main_Window(QWidget):
     def stack2UI(self, groupname_list):
         pass
         # 数据库操作,获取当前用户名+微信号的已有关键词列表keyword_list
-        keyword_list = getkeywords()
+        try:
+            # 数据库操作，获取用户ID和微信ID
+            uidwid = db.getUseridAndWxidWithLogStatus()
+            self.keyword_list = db.getUserKeyword(uidwid[0],uidwid[1])
+        except:
+            print("stack2UI: error")
         # """测试专用"""
         # keyword_list=["@全体成员","柯逍","beta版"]
         ######对对，初始化的时候要调用一次，但是后续具体弄得时候还得再调用，别忘了#########################
-        self.keyword_face = KeywordLogic(keyword_list, groupname_list)  # 左侧关键词生成
+        self.keyword_face = KeywordLogic(self.keyword_list, groupname_list)  # 左侧关键词生成
         """水平布局"""
         self.layout_2 = QGridLayout()
         self.layout_2.setContentsMargins(0, 0, 0, 0)
@@ -407,21 +412,25 @@ class KeywordLogic(QFrame, Keyword_Form ):
     def rightdelet(self, oname):
         try:
             self.findChild(QPushButton,oname).close()  # 尝试删除关键词
-            # 数据库操作，删除关键词
             try:
                 # 数据库操作，获取用户ID和微信ID
                 uidwid = db.getUseridAndWxidWithLogStatus()
                 #  数据库操作，删除关键词
                 if db.deleteKeyword(uidwid[0],uidwid[1],oname):
-                    print("Delete keyword success")
+                    print("rightdelet: Delete keyword success")
             except:
-                print("db for delete keyword error")
+                print("rightdelet: db for delete keyword error")
             self.closegroup()  # 尝试删除群聊列表
-            # 数据库操作，获取当前关键词列表
-            keyword_list = db.getkeywords()
+            try:
+                # 数据库操作，获取用户ID和微信ID
+                uidwid = db.getUseridAndWxidWithLogStatus()
+                # 数据库操作，获取当前关键词列表
+                self.keyword_list = db.getUserKeyword(uidwid[0], uidwid[1])
+            except:
+                print("rightdelet: keyword_list error")
             # """测试专用"""
             # keyword_list=["right","delet"]
-            self.init_keyword(keyword_list)  # 重新生成关键词列表
+            self.init_keyword(self.keyword_list)  # 重新生成关键词列表
         except:
             print("No such button")
 
@@ -438,19 +447,24 @@ class KeywordLogic(QFrame, Keyword_Form ):
         # self.PB_keyword.setMaximumSize(QtCore.QSize(200, 0))
         self.PB_keyword.setText(str(keyword))
         self.PB_keyword.setObjectName(keyword)
-        # 数据库操作，再获取一次keyword_list
-        keyword_list = db.getkeywords()
+        try:
+            # 数据库操作，获取用户ID和微信ID
+            uidwid = db.getUseridAndWxidWithLogStatus()
+            # 数据库操作，再获取一次keyword_list
+            self.keyword_list = db.getUserKeyword(uidwid[0], uidwid[1])
+        except:
+            print("add_keyword: keyword_list error")
         # """测试专用"""
         # keyword_list=["add","keyword","third"]
-        self.gridLayout.addWidget(self.PB_keyword, len(keyword_list) / 3, len(keyword_list) % 3, 1, 1) #
+        self.gridLayout.addWidget(self.PB_keyword, len(self.keyword_list) / 3, len(self.keyword_list) % 3, 1, 1)
         try:
             # 数据库操作，获取用户ID和微信ID
             uidwid = db.getUseridAndWxidWithLogStatus()
             # 数据库操作，插入新关键词并初始化所有群聊为0
             if db.setKeywords_0(uidwid[0],uidwid[1],keyword,self.grouplist):
-                print("ADD MEW KEYWORD SUCCESS")
+                print("add_keyword: ADD MEW KEYWORD SUCCESS")
         except:
-            print("ADD MEW KEYWORD FALSE")
+            print("add_keyword: ADD MEW KEYWORD FALSE")
         # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
         self.PB_keyword.clicked.connect(lambda: self.select_scope(self.sender().text()))
 
@@ -465,7 +479,7 @@ class KeywordLogic(QFrame, Keyword_Form ):
             if self.findChild(QScrollArea,"SA_group"):
                 self.groupkey.close()
         except:
-            print("select_scope error")
+            print("select_scope: error")
         self.groupkey = GkeywordLogic(keyword)
         self.horizontalLayout.addWidget(self.groupkey)
 
@@ -477,7 +491,7 @@ class KeywordLogic(QFrame, Keyword_Form ):
         try:
             self.groupkey.close()
         except:
-            print("closegroup error")
+            print("closegroup: error")
 
     def mousePressEvent(self, event):
         """
@@ -532,18 +546,18 @@ class GkeywordLogic(QFrame, Gkeyword_Form):
             # 数据库操作，获取用户ID和微信ID
             uidwid = db.getUseridAndWxidWithLogStatus()
             # 数据库操作，获取关键词的历史作用群聊
-            groupname_list = db.keyWordGroupStatus(uidwid[0], uidwid[1], self.keyword)  # 包含字典的list
+            self.groupname_list = db.keyWordGroupStatus(uidwid[0], uidwid[1], self.keyword)  # 包含字典的list
         except:
-            print("db in create_element error")
+            print("create_element: db in create_element error")
         self.topFiller = QtWidgets.QWidget()
         self.topFiller.setContentsMargins(0, 0, 0, 0)
         # """测试专用"""
         # groupname_list=[("create",1),("element",0)]
-        for item in range(len(groupname_list)):
+        for item in range(len(self.groupname_list)):
             self.CB_group = QtWidgets.QCheckBox(self.topFiller)
             self.CB_group.resize(270, 60)
-            self.CB_group.setText(str(groupname_list[item][0]))
-            if groupname_list[item][1]:
+            self.CB_group.setText(str(self.groupname_list[item][0]))
+            if self.groupname_list[item][1]:
                 self.CB_group.setChecked(True)  # 存在即选中
             self.topFiller.setMinimumSize(0, (item + 1) * 60)
             self.CB_group.move(0, item * 61)
@@ -563,12 +577,12 @@ class GkeywordLogic(QFrame, Gkeyword_Form):
                 # 数据库操作，获取用户ID和微信ID
                 uidwid = db.getUseridAndWxidWithLogStatus()
                 # 数据库操作,修改关键词作用的群聊
-                if db.setKeywords_1(uidwid[0], uidwid[1], self.keyword, self.groupschange):
-                    utils_wxpy.updatekey(parent_conn)  # 通知，作用域改变
+                # if db.setKeywords_1(uidwid[0], uidwid[1], self.keyword, self.groupschange):
+                #     utils_wxpy.updatekey(parent_conn)  # 通知，作用域改变
                 self.diasuccess()   # 用户可见
-                print("DB INSTER SUCCESS")  # 调试方便
+                print("confirmgroup: DB INSTER SUCCESS")  # 调试方便
             except:
-                print("DB INSTER ERROR")
+                print("confirmgroup: DB INSTER ERROR")
 
     def diasuccess(self):
         """
