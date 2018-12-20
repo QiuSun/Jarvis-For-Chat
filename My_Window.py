@@ -56,7 +56,7 @@ class Main_Window(QWidget):
         self.main_layout.addLayout(self.avatar_layout, 1, 0)
         self.avatar = QtWidgets.QPushButton()
         self.avatar.setFixedSize(QSize(180, 180))
-        self.avatar.setIcon(QIcon(r'Resource/images/avatar1.png'))
+        self.avatar.setIcon(QIcon(r'images/avatar.png'))
         self.avatar.setIconSize(QSize(170, 170))
         self.exit_button = QtWidgets.QPushButton()
         self.exit_button.setFixedSize(QSize(180, 20))
