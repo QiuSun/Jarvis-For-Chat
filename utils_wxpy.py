@@ -2,8 +2,12 @@ import random
 import time
 from multiprocessing import Pipe, Process
 
+import urllib
+import hashlib
+import datetime
 from database import *
 from wxpy import *
+import http
 
 def singleFriendTest(main_process):
     '''
@@ -22,8 +26,11 @@ def groupSend(main_process, message_model, friendname_list):
     :param friendname_list: 需要群发的好友列表
     :return:
     '''
-    packet = ['groupSend', message_model].append(friendname_list)
+    packet = ['groupsend', message_model]
+    for friendname in friendname_list:
+        packet.append(friendname)
     # 消息一次性发送到wxpy中 任务在wxpy中执行
+    print(packet)
     main_process.send(packet)
 
 
@@ -106,6 +113,52 @@ def get_current_time():
     '''
     return str(time.strftime("%Y%m%d%H%M%S", time.localtime(time.time())))
 
+def send_industry_sms(tos, smsContent):
+    """
+    发送信息
+    使用秒嘀科技API实现
+    :return:
+    """
+    # 秒嘀科技注册后的账户信息
+    accountSid = '6ac4f4828fef413ebaf90e5bf9bff782'          # ACCOUNT SID
+    acctKey = '46cc515148fa4bf29fb571ed27b8fa63'          # AUTH TOKEN
+
+    # 定义地址，端口等
+    serverHost = "api.miaodiyun.com"
+    serverPort = 443
+    industryUrl = "/20150822/industrySMS/sendSMS"
+
+    # 格式化时间戳，并计算签名
+    timeStamp = datetime.datetime.strftime(datetime.datetime.now(), '%Y%m%d%H%M%S')
+    rawsig = accountSid + acctKey + timeStamp
+    m = hashlib.md5()
+    m.update(rawsig.encode("utf8"))
+    sig = m.hexdigest()
+
+    # 定义需要进行发送的数据表单
+    params = urllib.parse.urlencode(
+        {'accountSid': accountSid,
+         'smsContent': smsContent,
+         'to': tos,
+         'timestamp': timeStamp,
+         'sig': sig
+         }
+    )
+
+    # 定义header
+    headers = {"Content-Type": "application/x-www-form-urlencoded", "Accept": "application/json"}
+    # 与构建https连接
+    conn = http.client.HTTPSConnection(serverHost, serverPort)
+    # Post数据
+    conn.request(method="POST", url=industryUrl, body=params, headers=headers)
+    # 返回处理后的数据
+    response = conn.getresponse()
+    # 读取返回数据
+    jsondata = response.read().decode('utf-8')
+
+    # 打印完整的返回数据，测试使用 #
+    print(jsondata)
+
 
 def createWxpyProcess(sub_process, userid, wxid):
     '''
@@ -123,12 +176,18 @@ def createWxpyProcess(sub_process, userid, wxid):
 
     if bot.alive:
         # 如果bot创建成功 向父进程发送succes信息
-        sub_process.send(['success'])
+        wxid = bot.self.wxid
+        packet = ['success', wxid]
+        sub_process.send(packet)
+    else:
+        packet = ['fail', '']
+        sub_process.send(packet)
 
-    key_list = []
+    key_group_list = []
 
     @bot.register()
     def saveMessage(msg):
+        print('[+]key_group_list', key_group_list)
         if msg.type == 'Text':
             # 如果是群消息
             if msg.member:
@@ -136,9 +195,10 @@ def createWxpyProcess(sub_process, userid, wxid):
                                      msg.create_time.strftime("%Y%m%d%H%M%S"), msg.text)
                 print('[+]群聊[{}] 成员[{}] 内容[{}] 已存入数据库'.format(msg.sender.name, msg.member.name, msg.text))
 
-            for key in key_list:
-                if key in msg:
-                    pass
+                for key_group in key_group_list:
+                    if msg.sender.name == key_group[1] and key_group[0] in msg.text:
+                        print('[!]发送短信中!!!')
+                        send_industry_sms('13038011192', '【第三视角】您的验证码为'+key_group[0] + '，请于'+ key_group[1] + '分钟内正确输入，如非本人操作，请忽略此短信。')
 
 
     def s_singleFriendTest():
@@ -190,8 +250,17 @@ def createWxpyProcess(sub_process, userid, wxid):
         sub_process.send(packet)
 
     def s_updateKey():
-        # 从数据读取，更新到keylist中
-        pass
+        '''
+
+        :return:
+        '''
+        print('[+]开始运行【关键词更新】')
+        # 从数据读取，更新到key_group_list中
+        userid, wxid = getUseridAndWxidWithLogStatus()
+        print('[!]userid, wxid', userid, wxid)
+        key_group_list = getUserKeywordAndGroup(userid, wxid)
+        return key_group_list
+
 
     def s_getFriendnames():
         '''
@@ -206,6 +275,15 @@ def createWxpyProcess(sub_process, userid, wxid):
         print('[ ]packet: {}'.format(packet))
         sub_process.send(packet)
 
+    def s_getMessage(message_model, friendname):
+        '''
+
+        :param message_model:
+        :param friendname:
+        :return:
+        '''
+        return message_model
+
     def s_groupSend(message_model, friendname_list):
         '''
         子进程中的消息群发
@@ -213,6 +291,14 @@ def createWxpyProcess(sub_process, userid, wxid):
         :param friendname_list: 需要群发的好友列表
         :return:
         '''
+        print('[+]开始运行【消息群发】')
+        for friendname in friendname_list:
+            message = s_getMessage(message_model, friendname)
+            s_sendMsg(friendname, message)
+            time.sleep(random.uniform(2,5))
+
+    # 初始登录时更新
+    key_group_list = s_updateKey()
 
     # 子程序进入死循环 不断监听管道内是否有命令
     while True:
@@ -234,11 +320,11 @@ def createWxpyProcess(sub_process, userid, wxid):
             print('[!]Wxpy子进程即将退出')
             exit(0)
         elif operate == 'updatekey':            # 更新关键词列表
-            s_updateKey()
+            key_group_list = s_updateKey()
         elif operate == 'getfriendnames':       # 获取好友名称列表
             s_getFriendnames()
         elif operate == 'groupsend':
-            s_groupSend(recv[1], recv[2,])      # 消息群发
+            s_groupSend(recv[1], recv[2:])      # 消息群发
 
 
 
@@ -248,19 +334,11 @@ if __name__ == "__main__":
     wxpy_process.start()
 
     time.sleep(5)
-    # print('即将运行单向好友检测1')
-    # singleFriendTest(parent_conn)
-    # time.sleep(5)
-    # print('即将运行消息群发')
-    # # sendMsg(("爸爸", "吃饭了吗"))
-    #
-    # time.sleep(5)
-    # print('即将显示groupnames')
-    # print(getGroupnames(parent_conn))
 
-    friend_names = getFriendnames(parent_conn)
+    # groupSend(parent_conn, '你好呀', ['俊彦', '凡凡哥'])
 
-    print(friend_names)
+    time.sleep(10)
+    updateKey(parent_conn)
 
     while True:
         time.sleep(5)
