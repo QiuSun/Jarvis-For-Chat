@@ -14,7 +14,7 @@ import database as db
 
 
 class LoginLogic(QDialog, Ui_Dialog):
-    def __init__(self, parent=None):
+    def __init__(self, welcome_window,parent=None):
         super(LoginLogic, self).__init__(parent)
         """初始化函数"""
         self.setupUi(self)
@@ -42,7 +42,7 @@ class LoginLogic(QDialog, Ui_Dialog):
         self.LBP_password.setScaledContents(True)
         """信号槽初始化"""
         # qt的信号槽机制，连接按钮的点击事件和相应的方法
-        self.PB_login.clicked.connect(lambda: self.sign_in())
+        self.PB_login.clicked.connect(lambda: self.sign_in(welcome_window))
         # 关闭按钮关闭当前对话框
         self.PB_close.clicked.connect(self.close)
         self.PB_tosignup.clicked.connect(lambda: self.signup())
@@ -61,7 +61,7 @@ class LoginLogic(QDialog, Ui_Dialog):
     def empty_note(self):
         self.LB_note.setText("")
 
-    def sign_in(self):
+    def sign_in(self,welcome_window):
         """
         登陆方法
         :return:
@@ -77,6 +77,7 @@ class LoginLogic(QDialog, Ui_Dialog):
                     if db.statusChangeLogin(user_name):
                         self.LB_note.setText("登录成功")
                         # ___________登录成功转到主窗口_____________#
+                        welcome_window.hide()
                         self.mainwindow_up()
                         self.hide()
                         # ___________登录成功转到主窗口_____________#
@@ -93,8 +94,10 @@ class LoginLogic(QDialog, Ui_Dialog):
                 self.LB_note.setText("此用户未注册")
                 ######___________登录成功转到主窗口_____________#######
                 ######此处仅为测试功能用，待完善后需要删除
+                welcome_window.hide()
                 self.mainwindow_up()
                 self.hide()
+
                 ######___________登录成功转到主窗口_____________#######
 
     def signup(self):
@@ -115,15 +118,10 @@ class LoginLogic(QDialog, Ui_Dialog):
         self.hide()
         import os
         os.system('python My_Window.py')
-        #from My_Window import Main_Window
-        #//mainwindow = Main_Window()
-        #//mainwindow.show()
-        #//self.close()
-
-
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    ui = LoginLogic()
+    welcome = QtWidgets
+    ui = LoginLogic(welcome)
     ui.show()
     sys.exit(app.exec_())

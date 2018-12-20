@@ -126,7 +126,7 @@ class Main_Window(QWidget):
         打开登录窗口
         """
         from my_login_py import LoginLogic
-        login = LoginLogic()
+        login = LoginLogic(self)
         login.show()
         # check_login_window(login)
 
