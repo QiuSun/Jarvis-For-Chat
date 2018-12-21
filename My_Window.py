@@ -367,9 +367,11 @@ class GroupLogic(QFrame, Group_Form):
         # -----------------------再插入词云--------------------------------#
         # 生成路径
         path = 'result/' + str(time.strftime("%Y%m%d%H%M%S", time.localtime(time.time()))) + '.jpg'
-        print("path ok")
+        # print("path ok")
+        userid, wxid = db.getUseridAndWxidWithLogStatus()
+        print('[!]userid, wxid : ', [userid, wxid])
         #######################这句不能用#############################
-        utils_analyse.getWordCloud('13038011192', '13038011192', self.data[0], self.data[1],
+        utils_analyse.getWordCloud(userid, wxid, self.data[0], self.data[1],
                                    self.data[2], path, image_mask_path='map.png')
         print(path)
         self.l1.setGeometry(0, 0, 540, 455)
@@ -377,7 +379,7 @@ class GroupLogic(QFrame, Group_Form):
         self.l1.setPixmap(self.worldcloud)
         self.l1.setStyleSheet('background: rgb(255,255,255)')
         self.W_left_layout.addWidget(self.l1)
-        # print("over")
+        print("over")
 
     def searchgroup(self):
         """
@@ -509,6 +511,7 @@ class KeywordLogic(QFrame, Keyword_Form):
         # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
         self.PB_keyword.clicked.connect(lambda: self.select_scope(self.sender().text()))
 
+
     def select_scope(self, keyword):
         """
         被链接：add_keyword 在生成新按钮时链接
@@ -626,6 +629,8 @@ class GkeywordLogic(QFrame, Gkeyword_Form):
                     print("confirmgroup: DB INSTER SUCCESS")  # 调试方便
             except:
                 print("confirmgroup: DB INSTER ERROR")
+        # 向后端发送数据库更新命令
+        utils_wxpy.updateKey(parent_conn)
 
     def diasuccess(self):
         """

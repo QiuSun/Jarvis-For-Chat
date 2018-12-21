@@ -78,7 +78,7 @@ def getUserLoginStatus(userid):
     '''
     获取用户的登录状态
     :param userid: 用户ID
-    :return: 用户登录状态，'1'为已登录，'0'为未登录
+    :return: 用户登录状态，1为已登录，'0'为未登录
     '''
     import sqlite3
     con = sqlite3.connect('Jarvis-forChat.db')
@@ -99,7 +99,7 @@ def statusChange_Login(userid):
     con = sqlite3.connect('Jarvis-forChat.db')
     c = con.cursor()
     try:
-        c.execute("update user set log_status ='1' where userID= ? ", (userid,))
+        c.execute("update user set log_status =1 where userID= ? ", (userid,))
         con.commit()
         con.close()
     except Exception:
@@ -161,6 +161,25 @@ def getUserKeywordAndGroup(userid,wxid):
     con = sqlite3.connect('Jarvis-forChat.db')
     c = con.cursor()
     cursor = c.execute("select distinct keyword, apply_area from WX_keyWords_set where userID= ? and WX_id= ?", (userid, wxid))
+    pair = []
+    for item in cursor:
+        #print(item)
+        pair.append(item)
+    con.commit()
+    con.close()
+    return pair
+
+def getChosedUserKeywordAndGroup(userid,wxid):
+    '''
+    获取用户设置的关键词列表
+    :param userid: 用户ID
+    :param wxid: 微信ID
+    :return: （关键词，群聊）二元组
+    '''
+    import sqlite3
+    con = sqlite3.connect('Jarvis-forChat.db')
+    c = con.cursor()
+    cursor = c.execute("select distinct keyword, apply_area from WX_keyWords_set where userID= ? and WX_id= ? and chosen=1", (userid, wxid))
     pair = []
     for item in cursor:
         #print(item)
@@ -402,7 +421,7 @@ def getUseridAndWxidWithLogStatus():
     import sqlite3
     con = sqlite3.connect('Jarvis-forChat.db')
     c = con.cursor()
-    cursor = c.execute("select Wechat.userID,Wechat.WX_id from Wechat inner join User where Wechat.userID = User.userID and User.log_status='1'")
+    cursor = c.execute("select Wechat.userID,Wechat.WX_id from Wechat inner join User where Wechat.userID = User.userID and User.log_status=1")
     print(cursor)
     info = []
     result_list=[]
@@ -410,10 +429,45 @@ def getUseridAndWxidWithLogStatus():
         info.append(item)
         #info.append(item[1])
 
-    #print(info)
     con.commit()
     con.close()
     return info[0]
+
+
+def getLogedUserid():
+    import sqlite3
+    con = sqlite3.connect('Jarvis-forChat.db')
+    c = con.cursor()
+    cursor = c.execute("select userID from User where log_status=1")
+    print(cursor)
+    info = []
+    for item in cursor:
+        info.append(item)
+
+    con.commit()
+    con.close()
+    print('[-]getLogedUserid info:', info)
+    return info[0][0]
+
+
+def insertIntoWechat(userid, wxid):
+    import sqlite3
+    con = sqlite3.connect('Jarvis-forChat.db')
+    c = con.cursor()
+    sg = True
+    try:
+        c.execute("insert into Wechat (userID,WX_id) \
+         values (?,?)", (userid, wxid))
+        con.commit()
+        con.close()
+    except Exception:
+        con.rollback()
+        sg = False
+        con.close()
+    finally:
+        return sg
+    return sg
+
 
 def getChosen(userid,wxid,key):
     import sqlite3
@@ -471,7 +525,7 @@ def changeKeywordGroupStatus(userid,wxid,key,grp):
 
 def keyWordGroupStatus(userID, WX_id, keyword):
     '''
-获取相应关键词作用的群组状态
+    获取相应关键词作用的群组状态
     :param userID: 用户名 字符串类型
     :param WX_id: 微信账号 字符串类型
     :param keyword: 关键词 字符串类型
@@ -499,3 +553,25 @@ def keyWordGroupStatus(userID, WX_id, keyword):
         print('[-]Error')
     conn.close()
     return list
+
+
+def filterMessage(userid, wxid, msg_group, msg_time_start, msg_time_end):
+    '''
+    从数据库中筛选出一定时间段内、指定群聊（通过名称）的聊天信息
+    :param userid: 
+    :param wxid: 
+    :param msg_group: 
+    :param msg_time_start: 
+    :param mesg_time_end: 
+    :return: 由string组成的列表
+    '''
+    import sqlite3
+    con = sqlite3.connect('Jarvis-forChat.db')
+    c = con.cursor()
+    cursor = c.execute("select msg from WX_group_msg where userID= ? and WX_id = ? and src_Wxgrp = ? and msg_time >= ? and msg_time <= ?", (userid, wxid, msg_group, msg_time_start, msg_time_end))
+    message_list = []
+    for item in cursor:
+        message_list.append(item[0])
+    con.commit()
+    con.close()
+    return message_list

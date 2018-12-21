@@ -8,6 +8,7 @@ import datetime
 from database import *
 from wxpy import *
 import http
+import database
 
 def singleFriendTest(main_process):
     '''
@@ -183,6 +184,9 @@ def createWxpyProcess(sub_process, userid, wxid):
         packet = ['fail', '']
         sub_process.send(packet)
 
+    userid = database.getLogedUserid()
+    database.insertIntoWechat(userid, wxid)
+
     key_group_list = []
 
     @bot.register()
@@ -258,7 +262,7 @@ def createWxpyProcess(sub_process, userid, wxid):
         # 从数据读取，更新到key_group_list中
         userid, wxid = getUseridAndWxidWithLogStatus()
         print('[!]userid, wxid', userid, wxid)
-        key_group_list = getUserKeywordAndGroup(userid, wxid)
+        key_group_list = getChosedUserKeywordAndGroup(userid, wxid)
         return key_group_list
 
 

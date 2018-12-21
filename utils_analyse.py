@@ -116,6 +116,13 @@ def getWordCloud(userid, wxid, msg_group, msg_time_start, msg_time_end, image_sa
     :param image_mask_path: 蒙版路径
     :return: 该时段内群聊消息的总数
     '''
+    print('userid', userid)
+    print('wxid', wxid)
+    print('msg_group', msg_group)
+    print('msg_time_start', msg_time_start)
+    print('msg_time_end', msg_time_end)
+    print('image_save_path', image_save_path)
+
     message_list = filterMessage(userid, wxid , msg_group, msg_time_start, msg_time_end)
     if len(message_list) == 0:
         print('[-]该时间段内收集到的消息数为0 生成错误图片中')

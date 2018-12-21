@@ -128,11 +128,6 @@ class Main_Window(QWidget):
         from my_login_py import LoginLogic
         login = LoginLogic(self)
         login.show()
-        # check_login_window(login)
-
-    def check_login_window(self,login):
-        if not login.isVisible():#主窗口关闭时
-            self.hide()
 
     def whichbtn(self, btn):
         # 输出被点击的按钮

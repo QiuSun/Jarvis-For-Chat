@@ -45,7 +45,7 @@ class LoginLogic(QDialog, Ui_Dialog):
         self.PB_login.clicked.connect(lambda: self.sign_in(welcome_window))
         # 关闭按钮关闭当前对话框
         self.PB_close.clicked.connect(self.close)
-        self.PB_tosignup.clicked.connect(lambda: self.signup())
+        self.PB_tosignup.clicked.connect(lambda: self.signup(welcome_window))
         # 输入框有输入时，清空提示信息
         self.LE_username.textChanged.connect(lambda: self.empty_note())
         self.LE_password.textChanged.connect(lambda: self.empty_note())
@@ -74,12 +74,11 @@ class LoginLogic(QDialog, Ui_Dialog):
             password = db.IsExistUser(user_name)
             if password != None:
                 if db.hash(user_password) == password:
-                    if db.statusChangeLogin(user_name):
+                    if db.statusChange_Login(user_name):
                         self.LB_note.setText("登录成功")
                         # ___________登录成功转到主窗口_____________#
                         welcome_window.hide()
                         self.mainwindow_up()
-                        self.hide()
                         # ___________登录成功转到主窗口_____________#
                     else:
                         self.LB_note.setText("登录失败，请重试！")
@@ -96,19 +95,18 @@ class LoginLogic(QDialog, Ui_Dialog):
                 ######此处仅为测试功能用，待完善后需要删除
                 welcome_window.hide()
                 self.mainwindow_up()
-                self.hide()
-
                 ######___________登录成功转到主窗口_____________#######
 
-    def signup(self):
+
+    def signup(self,welcome_window):
         """
         去往注册的界面
         :return:
         """
         from my_signup_py import SignupLogic
-        sig = SignupLogic()
+        sig = SignupLogic(welcome_window)
         sig.show()
-        self.hide()
+        self.close()
 
     def mainwindow_up(self):
         """

@@ -17,7 +17,7 @@ from Signup import Ui_Dialog
 
 
 class SignupLogic(QDialog,Ui_Dialog):
-    def __init__(self,parent=None):
+    def __init__(self,welcome_window,parent=None):
         super(SignupLogic, self).__init__(parent)
         """初始化"""
         self.setupUi(self)
@@ -69,7 +69,7 @@ class SignupLogic(QDialog,Ui_Dialog):
         self.PB_vcode.clicked.connect(lambda : self.creat_vcode())
         # 关闭按钮关闭当前对话框
         self.PB_close.clicked.connect(self.close)
-        self.PB_return.clicked.connect(lambda: self.return_main())
+        self.PB_return.clicked.connect(lambda: self.return_main(welcome_window))
         # 输入框有输入时，清空提示信息
         self.LE_username.textChanged.connect(lambda: self.empty_note())
         self.LE_phone.textChanged.connect(lambda: self.empty_note())
@@ -113,7 +113,7 @@ class SignupLogic(QDialog,Ui_Dialog):
         else:
             user_password = db.hash(user_password)
             if db.IsExistUser(user_name) == None:
-                db.InsertUser(user_name,user_name,user_phone,user_password)
+                db.Insert_User(user_phone,user_name,user_phone,user_password)
                 self.LB_note.setText("注册成功")
                 self.timer.timeout.connect(self.return_main)
                 self.timer.start(3000)
@@ -207,13 +207,13 @@ class SignupLogic(QDialog,Ui_Dialog):
         print(jsondata)
 
 
-    def return_main(self):
+    def return_main(self,welcome_window):
         """
         返回登录的界面
         :return:
         """
         from my_login_py import LoginLogic
-        Log =LoginLogic()
+        Log =LoginLogic(welcome_window)
         Log.show()
         if self.timer.isActive():
             self.timer.stop()
@@ -222,6 +222,7 @@ class SignupLogic(QDialog,Ui_Dialog):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    ui = SignupLogic()
+    welcome_window=QtWidgets
+    ui = SignupLogic(welcome_window)
     ui.show()
     sys.exit(app.exec_())
