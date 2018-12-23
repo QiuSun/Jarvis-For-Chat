@@ -332,8 +332,7 @@ def createWxpyProcess(sub_process, userid, wxid):
 
         if operate == 'singlefriend':
             # 暂时关闭单向好友检测
-            # s_singleFriendTest()
-            pass
+            s_singleFriendTest()
         elif operate == 'sendmsg':              # 向单个好友发送消息
             s_sendMsg(recv[1], recv[2])
         elif operate == 'getgroupnames':        # 获取群聊名称列表
