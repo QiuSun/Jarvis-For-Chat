@@ -14,6 +14,7 @@ class Gkeyword_Form(object):
         Form.resize(270, 600)
         Form.setMinimumSize(QtCore.QSize(0, 0))
         Form.setMaximumSize(QtCore.QSize(270, 600))
+        
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
@@ -25,10 +26,8 @@ class Gkeyword_Form(object):
         self.horizontalLayout_2.addWidget(self.label)
         self.PB_confirmgroup = QtWidgets.QPushButton(Form)
         self.PB_confirmgroup.setMinimumSize(QtCore.QSize(240, 40))
-        font = QtGui.QFont()
-        font.setFamily("微软雅黑")
-        font.setPointSize(14)
-        self.PB_confirmgroup.setFont(font)
+        
+    
         self.PB_confirmgroup.setObjectName("PB_confirmgroup")
         self.horizontalLayout_2.addWidget(self.PB_confirmgroup)
         self.label_2 = QtWidgets.QLabel(Form)
@@ -58,6 +57,7 @@ class Gkeyword_Form(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
+        
         self.LE_search = QtWidgets.QLineEdit(Form)
         self.LE_search.setMinimumSize(QtCore.QSize(20, 25))
         self.LE_search.setObjectName("LE_search")

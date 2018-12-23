@@ -1,6 +1,7 @@
 import random
 import time
 from multiprocessing import Pipe, Process
+from jieba import posseg as psg
 
 import urllib
 import hashlib
@@ -282,11 +283,28 @@ def createWxpyProcess(sub_process, userid, wxid):
     def s_getMessage(message_model, friendname):
         '''
 
-        :param message_model:
-        :param friendname:
-        :return:
+        :param message_model: 模板
+        :param friendname: 好友备注名
+        :return: 将好友备注名替换后的模板
         '''
-        return message_model
+        flag_position = []
+        for i in range(len(message_model)):
+            if message_model[i] == '#':
+                flag_position.append(i)
+        if len(flag_position) == 0:
+            return message_model
+
+        replace_word = ''
+        for word, flag in psg.cut(friendname):
+            if 'nr' in flag:
+                replace_word = word
+
+        if replace_word == '':
+            replace_word = '朋友'
+
+        result_string = message_model[0:flag_position[0]] + replace_word + message_model[flag_position[1] + 1:]
+
+        return result_string
 
     def s_groupSend(message_model, friendname_list):
         '''

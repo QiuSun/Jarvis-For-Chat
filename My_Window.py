@@ -87,15 +87,21 @@ class Main_Window(QWidget):
         self.stack2 = QWidget()  # 关键词提醒
         self.stack3 = QWidget()  # 群发助手
         self.stack4 = QWidget()  # 单向好友检测
+        
         self.setStack1UI(groupname_list)
         self.setStack2UI(groupname_list)
         self.setStack3UI(friendname_list)
         self.setStack4UI()
+
         self.stack.addWidget(self.stack1)
         self.stack.addWidget(self.stack2)
         self.stack.addWidget(self.stack3)
         self.stack.addWidget(self.stack4)
 
+        self.stack1.setStyleSheet('QWidget{background-color:#FAFAFA}')
+        self.stack2.setStyleSheet('QWidget{background-color:#FAFAFA}')
+        self.stack3.setStyleSheet('QWidget{background-color:#FAFAFA}')
+        self.stack4.setStyleSheet('QWidget{background-color:#FAFAFA}')
     def logoutEvent(self):
 
         info=db.getUseridAndWxidWithLogStatus()
@@ -271,12 +277,12 @@ class GroupLogic(QFrame, Group_Form):
         # self.LE_search.setTextMargins(0, 0, 0, 0)
         self.LE_search.setPlaceholderText("搜索")
         ################################# QSS ##################################
-        self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
-                           'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
-                           'QScrollBar{width:2px;}'
-                           'QPushButton{background-color: rgb(255,255,255,100);border:1px;}'
-                           'QComboBox{border:0px;border-radius:3px;background: rgb(255,255,255,100);}'
-                           'QComboBox:editable{background:rgb(255,255,255,100);}')
+        #self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
+        #                   'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
+        #                   'QScrollBar{width:2px;}'
+        #                   'QPushButton{background-color: rgb(255,255,255,100);border:1px;}'
+        #                   'QComboBox{border:0px;border-radius:3px;background: rgb(255,255,255,100);}'
+        #                   'QComboBox:editable{background:rgb(255,255,255,100);}')
 
     def create_element(self, groupname_list):
         """
@@ -289,7 +295,7 @@ class GroupLogic(QFrame, Group_Form):
             self.PB_group = QtWidgets.QPushButton(self.topFiller)
             self.PB_group.resize(270, 60)
             self.PB_group.setText(str(groupname_list[button]))
-            self.topFiller.setMinimumSize(0, (button + 1) * 60)
+            self.topFiller.setMinimumSize(0, (button) * 60)
             self.PB_group.move(0, button * 61)
             # 点击信号与槽函数进行连接，这一步实现：获取被点击的按钮的text
             self.PB_group.clicked.connect(lambda: self.choose_group(self.sender().text()))
@@ -409,6 +415,7 @@ class KeywordLogic(QFrame, Keyword_Form):
         self.retranslateUi(self)
         """初始化输入框"""
         self.LE_edit.setPlaceholderText("新建关键词")
+        self.LE_edit.setStyleSheet('QLineEdit#LE_edit{border:2px rgb(10,10,10,20) solid;backgroud-color:#FFFFFF;border-radius:10px;}')
         """初始化ACTION"""
         self.grouplist = groupname_list
         self.init_keyword(keyword_list)
@@ -571,15 +578,16 @@ class GkeywordLogic(QFrame, Gkeyword_Form):
         self.groupschange = []
         """初始化搜索框"""
         self.LE_search.setPlaceholderText("搜索")
+        self.LE_search.setStyleSheet('QLineEdit#LE_search{border:1px soild gray;background-color:#FFFFFF;border-radius:10px;color:#868686}')
         """初始化ACTION"""
         self.create_element()
         self.PB_confirmgroup.clicked.connect(self.confirmgroup)
         ################################# QSS ##################################
-        self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
-                           'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
-                           'QScrollBar{width:2px;}'
-                           'QPushButton{background-color: rgb(255,255,255,100);border:1px;}'
-                           'QComboBox{border:0px;border-radius:3px;background: rgb(255,255,255,100);}')
+        #self.setStyleSheet('QWidget{background-color: rgb(255,255,255,0)}'
+        #                   'QLineEdit{background-color:rgb(255,255,255,100);border-radius:3px;border-width:0px;}'
+        #                   'QScrollBar{width:2px;}'
+        #                   'QPushButton{background-color: rgb(255,255,255,100);border:1px;}'
+        #                   'QComboBox{border:0px;border-radius:3px;background: rgb(255,255,255,100);}')
 
     def create_element(self):
         """
@@ -595,8 +603,14 @@ class GkeywordLogic(QFrame, Gkeyword_Form):
             self.groupwithstatulist = db.keyWordGroupStatus(uidwid[0], uidwid[1], self.keyword)  # 包含字典的list
         except:
             print("create_element: db in create_element error")
-        self.topFiller = QtWidgets.QWidget()
+        self.topFiller = QtWidgets.QListWidget()
         self.topFiller.setContentsMargins(0, 0, 0, 0)
+        self.setObjectName('topFiller')
+        self.topFiller.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.topFiller.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.topFiller.setStyleSheet('QListWidget#topFiller{background-color:#D7D7D7;color:#868686;font-size:18px;}'
+                                    'QListWidget#topFiller::item:hover{background-color:#F0F0F40;}'
+                                    'QListWidget#topFiller::item:selected{background-color:#E4E4E4;}')
         # """测试专用"""
         # groupname_list=[("create",1),("element",0)]
         for item in range(len(self.groupwithstatulist)):
@@ -697,38 +711,53 @@ class FriendListLogic(QFrame, FriendList_Ui):
         # 输入文本框
         self.textbox = QtWidgets.QTextEdit(self)
         self.textbox.setGeometry(QtCore.QRect(30, 30, 321, 192))
+        self.textbox.setText("<html><head/><body><p align=\"center\">群发模板编辑完毕后</p><p align=\"center\">请在右侧选择群发对象~</p><p align=\"center\">并点击确认群发</p></body></html>")
+        
         # 确认群发按钮
         self.confirm_group_button = QtWidgets.QPushButton()
         self.confirm_group_button.setGeometry(QtCore.QRect(410, 110, 75, 23))
         self.confirm_group_button.setObjectName("confirm_group_button")
         self.confirm_group_button.setText("确认群发")
+        self.confirm_group_button.setMinimumSize(80,35)
+        
 
         # 使用提示
-        self.user_instructions = QtWidgets.QLabel()
+        self.user_instructions = QtWidgets.QPushButton()
         self.user_instructions.setGeometry(QtCore.QRect(370, 160, 151, 81))
         self.user_instructions.setObjectName("user_instructions")
-        self.user_instructions.setText(
-            "<html><head/><body><p align=\"center\">群发模板编辑完毕后</p><p align=\"center\">请在右侧选择群发对象~</p><p align=\"center\">并点击确认群发</p></body></html>")
+        self.user_instructions.setText("清除内容")
+        self.user_instructions.setMinimumSize(80,35)
 
         # 祝福模板按钮#
         self.blessing_temp_1 = QtWidgets.QPushButton()
-        self.blessing_temp_1.setGeometry(QtCore.QRect(30, 280, 150, 100))
-        self.blessing_temp_1.setObjectName("blessing_temp_1")
+        self.blessing_temp_1.setGeometry(QtCore.QRect(30, 280, 150, 120))
+        self.blessing_temp_1.setMinimumSize(150,120)
+        self.blessing_temp_1.setObjectName("blessing_temp")
+        
         self.blessing_temp_2 = QtWidgets.QPushButton()
-        self.blessing_temp_2.setGeometry(QtCore.QRect(200, 280, 150, 101))
-        self.blessing_temp_2.setObjectName("blessing_temp_2")
+        self.blessing_temp_2.setGeometry(QtCore.QRect(200, 280, 150, 120))
+        self.blessing_temp_2.setObjectName("blessing_temp")
+        self.blessing_temp_2.setMinimumSize(150,120)
+
         self.blessing_temp_3 = QtWidgets.QPushButton()
-        self.blessing_temp_3.setGeometry(QtCore.QRect(370, 280, 150, 100))
-        self.blessing_temp_3.setObjectName("blessing_temp_3")
+        self.blessing_temp_3.setGeometry(QtCore.QRect(370, 280, 150, 120))
+        self.blessing_temp_3.setObjectName("blessing_temp")
+        self.blessing_temp_3.setMinimumSize(150,120)
+
         self.blessing_temp_4 = QtWidgets.QPushButton()
-        self.blessing_temp_4.setGeometry(QtCore.QRect(30, 410, 150, 100))
-        self.blessing_temp_4.setObjectName("blessing_temp_4")
+        self.blessing_temp_4.setGeometry(QtCore.QRect(30, 410, 150, 120))
+        self.blessing_temp_4.setObjectName("blessing_temp")
+        self.blessing_temp_4.setMinimumSize(150,120)
+
         self.blessing_temp_5 = QtWidgets.QPushButton()
-        self.blessing_temp_5.setGeometry(QtCore.QRect(200, 410, 150, 100))
-        self.blessing_temp_5.setObjectName("blessing_temp_5")
+        self.blessing_temp_5.setGeometry(QtCore.QRect(200, 410, 150, 120))
+        self.blessing_temp_5.setObjectName("blessing_temp")
+        self.blessing_temp_5.setMinimumSize(150,120)
+
         self.blessing_temp_6 = QtWidgets.QPushButton()
-        self.blessing_temp_6.setGeometry(QtCore.QRect(370, 410, 150, 100))
-        self.blessing_temp_6.setObjectName("blessing_temp_6")
+        self.blessing_temp_6.setGeometry(QtCore.QRect(370, 410, 150, 120))
+        self.blessing_temp_6.setObjectName("blessing_temp")
+        self.blessing_temp_6.setMinimumSize(150,120)
         # 设置祝福模板文字
         self.blessing_temp_1.setText("#XX#，圣诞节快乐！")
         self.blessing_temp_2.setText("#XX#，元旦节快乐！")
@@ -749,16 +778,35 @@ class FriendListLogic(QFrame, FriendList_Ui):
         self.confirm_group_button.clicked.connect(lambda: self.confirmButtonClick(friends_sending_dict))
 
         # 添加控件
-        self.G_left_layout.addWidget(self.textbox, 0, 0, 3, 6)  ##控件名，行，列，占用行数，占用列数，对齐方式###############################
-        self.G_left_layout.addWidget(self.confirm_group_button, 0, 7, 1, 1)
-        self.G_left_layout.addWidget(self.user_instructions, 2, 7, 1, 1)
-        self.G_left_layout.addWidget(self.blessing_temp_1, 4, 0, 2, 3)
-        self.G_left_layout.addWidget(self.blessing_temp_2, 4, 3, 2, 3)
-        self.G_left_layout.addWidget(self.blessing_temp_3, 4, 6, 2, 3)
-        self.G_left_layout.addWidget(self.blessing_temp_4, 6, 0, 2, 3)
-        self.G_left_layout.addWidget(self.blessing_temp_5, 6, 3, 2, 3)
-        self.G_left_layout.addWidget(self.blessing_temp_6, 6, 6, 2, 3)
+        self.G_left_layout.addWidget(self.textbox, 0, 0, 3, 9)  ##控件名，行，列，占用行数，占用列数，对齐方式###############################
+        self.G_left_layout.addWidget(self.confirm_group_button, 4, 0, 1, 4)
+        self.G_left_layout.addWidget(self.user_instructions, 4, 5, 1, 4)
+        
+        self.G_left_layout.addWidget(self.blessing_temp_1, 5, 0, 2, 3)
+        self.G_left_layout.addWidget(self.blessing_temp_2, 5, 3, 2, 3)
+        self.G_left_layout.addWidget(self.blessing_temp_3, 5, 6, 2, 3)
+        self.G_left_layout.addWidget(self.blessing_temp_4, 7, 0, 2, 3)
+        self.G_left_layout.addWidget(self.blessing_temp_5, 7, 3, 2, 3)
+        self.G_left_layout.addWidget(self.blessing_temp_6, 7, 6, 2, 3)
         ################################# QSS ##################################
+
+        self.blessing_temp_1.setStyleSheet('QPushButton#blessing_temp{background-color:#D7D7D7;border:1px;border-radius:8px;font-size:20px;font-family:Yahei;}'
+                                      'QPushButton#blessing_temp:hover{color:rgb(255,255,255);background-color:rgb(0,148,200);}')
+        self.blessing_temp_2.setStyleSheet('QPushButton#blessing_temp{background-color:#D7D7D7;border:1px;border-radius:8px;font-size:20px;font-family:Yahei;}'
+                                      'QPushButton#blessing_temp:hover{color:rgb(255,255,255);background-color:rgb(0,148,200);}')
+        self.blessing_temp_3.setStyleSheet('QPushButton#blessing_temp{background-color:#D7D7D7;border:1px;border-radius:8px;font-size:20px;font-family:Yahei;}'
+                                      'QPushButton#blessing_temp:hover{color:rgb(255,255,255);background-color:rgb(0,148,200);}')
+        self.blessing_temp_4.setStyleSheet('QPushButton{background-color:#D7D7D7;border:1px;border-radius:8px;font-size:20px;font-family:Yahei;}'
+                                      'QPushButton#blessing_temp:hover{color:rgb(255,255,255);background-color:rgb(0,148,200);}')
+        self.blessing_temp_5.setStyleSheet('QPushButton#blessing_temp{background-color:#D7D7D7;border:1px;border-radius:8px;font-size:20px;font-family:Yahei;}'
+                                      'QPushButton#blessing_temp:hover{color:rgb(255,255,255);background-color:rgb(0,148,200);}')
+        self.blessing_temp_6.setStyleSheet('QPushButton#blessing_temp{background-color:#D7D7D7;border:1px;border-radius:8px;font-size:20px;font-family:Yahei;}'
+                                      'QPushButton#blessing_temp:hover{color:rgb(255,255,255);background-color:rgb(0,148,200);}') 
+        self.textbox.setStyleSheet('QTextEdit{border-radius:0px;font-size:18px;border: 2px solid rgb(10, 10, 10,20);border-color:#D7D7D7;background-color:#FFFFFF;color:#868686}')        
+        
+        self.confirm_group_button.setStyleSheet('QPushButton#confirm_group_button{border-radius:5px;font-size:22px;border:none;background-color:rgb(0,148,200);color:#FAFAFA;}')
+        
+        self.user_instructions.setStyleSheet('QPushButton#user_instructions{border-radius:5px;font-size:22px;border:none;background-color:rgb(0,148,200);color:#FAFAFA;}')
         return self.G_left_layout
 
     def confirmButtonClick(self, friends_sending_dict):
